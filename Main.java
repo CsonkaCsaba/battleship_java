@@ -2,10 +2,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
+
 
 class Main {
     public static void main(String[] args) {
 
+        Welcome welcome = new Welcome();
+        welcome.welcomeMessage();
+        
         //For try
         List<Ship> ships_player1 = new ArrayList<Ship>();
         ships_player1.add(new Ship(2,0,0,"vertical"));

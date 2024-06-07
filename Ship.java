@@ -2,11 +2,11 @@ public class Ship {
     private int size;
     private int start_x;
     private int start_y;
-    private String orientation;
+    private char orientation;
     
     
     //Constructor
-    public Ship(int size, int start_x, int start_y, String orientation) {
+    public Ship(int size, int start_x, int start_y, char orientation) {
         this.size = size;
         this.start_x = start_x;
         this.start_y = start_y;
@@ -39,11 +39,11 @@ public class Ship {
         this.start_y = start_y;
     }
 
-    public String getOrientation() {
+    public char getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public void setOrientation(char orientation) {
         this.orientation = orientation;
     }
 }

@@ -24,18 +24,53 @@ class Main {
 
         for(int k = 0; k < shipsToPlace.length; k++){
             boolean getShip = true;
+            boolean valid = false;
+            int row = 0;
+            char orient;
+            int colCharToInt;
             while(getShip){
+
                 System.out.println("Please enter the row number of the first cell of the " + shipsToPlace[k] + " long ship (1-9): ");
-                int row = scanner.nextInt(); //try-catch!!
+                do {
+                    try{
+                        row = Integer.parseInt(scanner.nextLine()); //try-catch!!
+                        valid = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter a number between 1 and 9");
+                        }
+                } while(!valid);
+
                 System.out.println("Please enter the letter belongs to the column of the first cell of the ship: (A-K)");
-                char col = scanner.next().charAt(0); //try-catch!! Need to convert char->int
+                do {
+                    char col = scanner.next().charAt(0); //try-catch!! Need to convert char->int
+                    char colToLower = Character.toLowerCase(col);
+                    if(colToLower <='k'){
+                        colCharToInt = colToLower - 'a' + 1;//char to int
+                        valid = true;
+                    } else {
+                        System.out.println("Please enter a letter between A-K");
+                        valid = false;
+                    }
+                } while (!valid);
+                
                 System.out.println("Please choose the orientation of the ship: enter h if horizontal and v if vertical!"); //try-catch!!
-                char orient = scanner.next().charAt(0); //try-catch!!
+                do {
+                    orient = scanner.next().charAt(0); //try-catch!!
+                    if(orient == 'h' || orient == 'v'){
+                         //vertical and horizontal check
+                        if((orient == 'v' && (row+shipsToPlace[k]-1 > 9)) || orient == 'h' && (row+shipsToPlace[k]-1 > 11)){ //for example: 3 long ship to row 8 can't be placed
+                        System.out.println("The ship can't be placed there, the length of the ship is more than the length of the board! Please enter the coordinates again!");
+                        valid = false;
+                        } else {
+                            valid = true;
+                        }   
+                    } else {
+                        System.out.println("Please type 'h' if you want the ship horizontal or type 'v' if you want it to vertical");
+                        valid = false;
+                    }
+                } while (!valid);
+                
                 getShip = false;
-                if(orient == 'v' && (row+shipsToPlace[k]-1 > 9)){ //for example: 3 long ship to row 8 can't be placed
-                    System.out.println("The ship can't be placed there, please enter the coordinates again!");
-                    getShip = true;
-                }
             }
             System.out.println("The ship is placed!");
             System.out.println("*******************");

@@ -21,6 +21,29 @@ public class Player {
     
     
     //Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(int[][] board) {
+        this.board = board;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(List<Ship> ships) {
+        this.ships = ships;
+    }
  
 
     //methods
@@ -70,6 +93,21 @@ public class Player {
                 }
             }
             
+        }
+    }
+    public static void showEmptyTable(){
+        char [][] board = new char[9][11];
+        System.out.print("   ");
+        for(char column = 'A'; column <='K'; column++ ){
+            System.out.print(column + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < board.length; i++) {
+            System.out.print(i+1 + " ");
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print(board[i][j] + " -");
+            }
+            System.out.println();
         }
     }
 

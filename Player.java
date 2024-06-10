@@ -69,6 +69,10 @@ public class Player {
                     case 1:
                         System.out.print("1 ");                        
                         break;
+                    //For check the surrounding of ships  
+                    case 3:
+                        System.out.print("3 ");                        
+                        break;
                     //Value of matrix is 0 - no action, 1 - ship is there, 3 - the surrounding cells of the ship                     
                     default:
                         System.out.print("- ");                        
@@ -82,14 +86,67 @@ public class Player {
     public void inicializeValues(){
         for(Ship ship : this.ships){
             if(ship.getOrientation() == 'v'){
-                int i = ship.getStart_y();
-                for(int j = ship.getStart_x(); j < ship.getSize(); j++){
-                    this.board[j][i] = 1;
+                int col = ship.getStart_y();
+                int row = ship.getStart_x();
+                int length = ship.getSize();
+                int end = row+length;
+
+                for(int k = row; k < end; k++){
+                    this.board[k][col] = 1;
+
+                    //Setting the values of surrounding cells to 3
+                    //Left
+                    if(col > 0){
+                        this.board[k][col-1] = 3;
+                    }
+                    //Right
+                    if(col < 10){
+                        this.board[k][col+1] = 3;
+                    }
                 }
+
+                //Setting the values of surrounding cells to 3
+                //Top
+                if((row-1) > -1){
+                    this.board[row-1][col] = 3;
+                }
+
+                //bottom
+                if(end < 8){
+                    this.board[end][col] = 3;
+                }
+
+            //Horizontal
             }else{
-                int i = ship.getStart_x();
-                for(int j = ship.getStart_y(); j < ship.getSize(); j++){
-                    this.board[i][j] = 1;
+                int col = ship.getStart_y();
+                int row = ship.getStart_x();
+                int length = ship.getSize();
+                int end = col+length;
+
+                for(int k = col; k < end; k++){
+                    this.board[row][k] = 1;
+
+                    //Setting the values of surrounding cells to 3
+                    //Top
+                    if(row > 0){
+                        this.board[row-1][k] = 3;
+                    }
+                    //Bottom
+                    if(row < 10){
+                        this.board[row+1][k] = 3;
+                    }
+
+                }
+
+                //Setting the values of surrounding cells to 3
+                //Left
+                if((col-1) > 0){
+                    this.board[row-1][col-1] = 3;
+                }
+
+                //Right
+                if(end < 10){
+                    this.board[row][end] = 3;
                 }
             }
             

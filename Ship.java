@@ -3,14 +3,15 @@ public class Ship {
     private int start_x;
     private int start_y;
     private char orientation;
-    
-    
+    private int shot;
+
     //Constructor
     public Ship(int size, int start_x, int start_y, char orientation) {
         this.size = size;
         this.start_x = start_x;
         this.start_y = start_y;
         this.orientation = orientation;
+        this.shot = 0;
     }
     
     //Getters and setters
@@ -45,5 +46,13 @@ public class Ship {
 
     public void setOrientation(char orientation) {
         this.orientation = orientation;
+    }
+
+    public int getShot() {
+        return shot;
+    }
+
+    public void setShot(int shot) {
+        this.shot = shot;
     }
 }

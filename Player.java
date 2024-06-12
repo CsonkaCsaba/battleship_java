@@ -57,6 +57,12 @@ public class Player {
  
 
     //methods
+
+    //Add a ship
+    public void addShip(Ship ship){
+        this.ships.add(ship);
+    }
+
     public void showTable(){
         System.out.print("  ");
         for(char column = 'A'; column <='K'; column++ ){
@@ -93,25 +99,28 @@ public class Player {
         }
     }
 
-    public void inicializeValues(){
-        for(Ship ship : this.ships){
-            if(ship.getOrientation() == 'v'){
-                int col = ship.getStart_y();
-                int row = ship.getStart_x();
-                int length = ship.getSize();
+    public boolean inicializeValues(int length, int row, int col, char orient){
+        boolean placeable = false;
+            if(orient == 'v'){
                 int end = row+length;
 
                 for(int k = row; k < end; k++){
-                    this.board[k][col] = 1;
+                    if(this.board[k][col] != 3){ //Checking the neighbors
+                        this.board[k][col] = 1;
+    
+                        //Setting the values of surrounding cells to 3
+                        //Left
+                        if(col > 0){
+                            this.board[k][col-1] = 3;
+                        }
+                        //Right
+                        if(col < 10){
+                            this.board[k][col+1] = 3;
+                        }
 
-                    //Setting the values of surrounding cells to 3
-                    //Left
-                    if(col > 0){
-                        this.board[k][col-1] = 3;
-                    }
-                    //Right
-                    if(col < 10){
-                        this.board[k][col+1] = 3;
+                        placeable = true;
+                    }else{
+                        return placeable;
                     }
                 }
 
@@ -126,26 +135,29 @@ public class Player {
                     this.board[end][col] = 3;
                 }
 
+
             //Horizontal
             }else{
-                int col = ship.getStart_y();
-                int row = ship.getStart_x();
-                int length = ship.getSize();
                 int end = col+length;
 
                 for(int k = col; k < end; k++){
-                    this.board[row][k] = 1;
+                    if(this.board[row][k] != 3){ //Checking the neighbors
+                        this.board[row][k] = 1;
 
-                    //Setting the values of surrounding cells to 3
-                    //Top
-                    if(row > 0){
-                        this.board[row-1][k] = 3;
-                    }
-                    //Bottom
-                    if(row < 8){
-                        this.board[row+1][k] = 3;
-                    }
+                        //Setting the values of surrounding cells to 3
+                        //Top
+                        if(row > 0){
+                            this.board[row-1][k] = 3;
+                        }
+                        //Bottom
+                        if(row < 8){
+                            this.board[row+1][k] = 3;
+                        }
 
+                        placeable = true;
+                    }else{
+                        return false;
+                    }
                 }
 
                 //Setting the values of surrounding cells to 3
@@ -160,8 +172,9 @@ public class Player {
                 }
             }
             
+            return placeable;            
         }
-    }
+    
     public static void showEmptyTable(){
         char [][] board = new char[9][11];
         System.out.print("   ");

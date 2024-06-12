@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
@@ -13,15 +14,18 @@ class Main {
 
         ArrayList<Player> players= new ArrayList<Player>();// ArrayList for save the players
         for(int i = 1; i <= 2; i++) {
-             //Get the name of Player
-            
+
+             //Get the name of Player            
             System.out.println("What is the name of the Player "+ i + " :" );
             String player_Name = scanner.next();
 
             //Placement of ships
-            System.out.println("Welcome " + player_Name + "! Please enter the first cells' coordinate of the given sized ships in the next few steps!\nNote that horizontal means left to right, while vertical means up to bottom directions!");
+            System.out.println("Welcome " + player_Name + "! Please enter the first cells' coordinate of the given sized ships in the next few steps!\nNote that horizontal means left to right, while vertical means up to bottom directions!\nThe row number must to be a number between 1-9 and the column's letter must to be a capital letter between A-K");
             int[] shipsToPlace = {2,3,3,4,5};
             List<Ship> ships_player = new ArrayList<Ship>();
+
+            Player player = new Player(player_Name, ships_player,0);
+
 
             for(int k = 0; k < shipsToPlace.length; k++){
                 boolean getShip = true;
@@ -36,11 +40,11 @@ class Main {
                     System.out.println("Please enter the row number of the first cell of the " + shipsToPlace[k] + " long ship (1-9): ");
                     do {
                         try{
-                            row = Integer.parseInt(scanner.nextLine()); //try-catch!!
+                            row = Integer.parseInt(scanner.next()); //try-catch!!
                             valid = true;
                             } catch (NumberFormatException e) {
-                                System.out.println();
-                                System.out.println("Please enter a number between 1 and 9");
+                                System.out.println("Please enter a number between 1 and 9!");
+                                valid = false;
                             }
                     } while(!valid);
 
@@ -74,7 +78,7 @@ class Main {
                             if((orient == 'v' && (row+shipsToPlace[k]-1 > 9)) || orient == 'h' && (col+shipsToPlace[k]-1 > 10)){ //for example: 3 long ship to row 8 can't be placed
                                 System.out.println("The ship can't be placed there, the length of the ship is more than the length of the board! Please enter the coordinates again!");
                                 getShip = true; //need to get the coordinate again
-                                valid = false; //break the do-while for orientation
+                                valid = true; //break the do-while for orientation
                             } else {
                                 valid = true;
                             }   
@@ -85,20 +89,27 @@ class Main {
                     } while (!valid);
 
                     row--; //Because of the index starts with 0
-                    //System.out.println(shipsToPlace[k] + " " + row + " " + col + " " + orient);                  
+                                   
+                    //Set the values on the player's board + check if it contacts another one
+                    boolean canBePlaced = player.inicializeValues(shipsToPlace[k],row,col,orient);
+
+                    //If the ship can be placed (doesn't contact another)
+                    if(canBePlaced){
+                        Ship newShip = new Ship(shipsToPlace[k],row,col,orient);
+                        player.addShip(newShip);
+    
+                        System.out.println("*******************");
+                        System.out.println("The ship is placed!");
+                        System.out.println("*******************");
+                    }else{
+                        System.out.println("Unfortunately, the ship cannot be placed there, because it is in contact with another one. Please enter the coordinates again!");
+                        getShip = true;
+                    }
                 }
 
-                //Create an instance of Ship class
-                ships_player.add(new Ship(shipsToPlace[k],row,col,orient));
-
-                System.out.println("*******************");
-                System.out.println("The ship is placed!");
-                System.out.println("*******************");
             }
 
-            Player player = new Player(player_Name, ships_player,0);
             players.add(player);
-            player.inicializeValues();
             player.showTable();
             
         }

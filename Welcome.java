@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public class Welcome {
      
-    public void welcomeMessage(){
+    public static void welcomeMessage(){
         System.out.println("**********************");
         System.out.println("Welcome to Battleship!");
         System.out.println("**********************");

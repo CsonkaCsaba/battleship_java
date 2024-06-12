@@ -5,12 +5,14 @@ public class Player {
     private String name;
     private int[][] board;
     private List<Ship> ships; //We need to Create ship objects before construct a Player
+    private int hits;
     
     //Constructor
-    public Player(String name, List<Ship> ships){
+    public Player(String name, List<Ship> ships, int hits) {
         this.name = name;
         this.board = new int[9][11];
         this.ships = ships;
+        this.hits = hits;
 
         for(int i = 0; i<board.length; i++){
             for (int j = 0; j < board[i].length; j++) {
@@ -43,6 +45,14 @@ public class Player {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
     }
  
 
@@ -132,7 +142,7 @@ public class Player {
                         this.board[row-1][k] = 3;
                     }
                     //Bottom
-                    if(row < 10){
+                    if(row < 8){
                         this.board[row+1][k] = 3;
                     }
 
@@ -141,7 +151,7 @@ public class Player {
                 //Setting the values of surrounding cells to 3
                 //Left
                 if((col-1) > 0){
-                    this.board[row-1][col-1] = 3;
+                    this.board[row][col-1] = 3;
                 }
 
                 //Right

@@ -15,12 +15,12 @@ class Main {
         ArrayList<Player> players= new ArrayList<Player>();// ArrayList for save the players
         for(int i = 1; i <= 2; i++) {
 
-             //Get the name of Player            
-            System.out.println("What is the name of the Player "+ i + " :" );
+             //Get the name of Player
+            ConsoleInput.getNameOfThePlayers(i);
             String player_Name = scanner.next();
 
             //Placement of ships
-            System.out.println("Welcome " + player_Name + "! Please enter the first cells' coordinate of the given sized ships in the next few steps!\nNote that horizontal means left to right, while vertical means up to bottom directions!\nThe row number must to be a number between 1-9 and the column's letter must to be a capital letter between A-K");
+            Welcome.welcomePlayer(player_Name);
             int[] shipsToPlace = {2,3,3,4,5};
             List<Ship> ships_player = new ArrayList<Ship>();
 

@@ -11,5 +11,9 @@ public class Welcome {
         System.out.println("**********************");
         
     }
+
+    public static void welcomePlayer(String name){
+        System.out.println("Welcome " + name + "! Please enter the first cells' coordinate of the given sized ships in the next few steps!\nNote that horizontal means left to right, while vertical means up to bottom directions!\nThe row number must to be a number between 1-9 and the column's letter must to be a capital letter between A-K");
+    }
    
 }

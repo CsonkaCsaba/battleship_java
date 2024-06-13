@@ -55,4 +55,21 @@ public class Ship {
     public void setShot(int shot) {
         this.shot = shot;
     }
+    //methods
+    public void itSunked(int shipGetSots, int shipSize){
+        
+        if(shipGetSots == shipSize){
+            System.out.println("The ship is sunked!");
+        } else {
+            System.out.println("You hit!");
+        }
+    }
+
+    public void shotIncrement(Ship ship){
+        ship.setShot(ship.getShot()+1);
+    }
+
+
+
+   
 }

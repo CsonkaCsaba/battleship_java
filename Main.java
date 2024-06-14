@@ -117,8 +117,8 @@ class Main {
         //Shots
         boolean hasWinner = false;
         int shotRow = 0;
-        int shotCol = 0;
-        boolean validCoordinate = false;
+        char shotCol = 0;
+        //boolean validCoordinate = false;
         boolean validShot = false;
         int player_hits = 0;
         Player shooterPlayer = null;
@@ -141,42 +141,23 @@ class Main {
                     default:
                         break;
                 }
-                System.out.println(shooterPlayer.getName() + ", it's your turn!");
-                do{//until the shot is valid
-                    System.out.println("Please enter the number of the row you want to shoot!(1-9): ");
-                    do {//until the ROW coordinates are valid
-                        try{ 
-                            shotRow = Integer.parseInt(scanner.next());
-                                if(shotRow <= 0 || shotRow >= 10){
-                                    System.out.println("The number is not valid! You need to enter a number between 1 and 9");
-                                } else {
-                                    validCoordinate = true;
-                                }
-                            } catch (NumberFormatException e ) {
-                                System.out.println();
-                                System.out.println("The input is not valid! Please enter a number between 1 and 9");
-                            }
-                        } while(!validCoordinate);
-                    
-                        System.out.println("Please enter the letter belongs to the column you want to shoot: (A-K)");
-                    do { //until the COLUMN coordinates are valid
-                        char shotColFromUser = scanner.next().charAt(0); //try-catch!! Need to convert char->int
-                            if (Character.isDigit(shotCol)){
-                                System.out.println("Error: please do not input a number");
-                                validCoordinate = false;
-                            } else {  
-                                char shotColToLower = Character.toLowerCase(shotColFromUser);
-                                if(shotColToLower <='k'){
-                                    shotCol = shotColToLower - 'a';//char to int
-                                    validCoordinate = true;
-                                } else {
-                                    System.out.println("Please enter a letter between A-K");
-                                    validCoordinate = false;
-                                }
-                            }
-                        } while(!validCoordinate);
 
-                        shotRow--; //Because of the index starts with 0
+                ConsoleOutput.playerTurn(shooterPlayer.getName());
+
+                do{//until the shot is valid
+
+                    ConsoleOutput.getRowNumber();
+                    ConsoleInput.getRowNumber();
+
+                    // shotRow = scanner.nextInt();
+                    // scanner.next();
+                    // shotRow--; //Because of the index starts with 0
+                    ConsoleInput.inputRowValidation(shotRow);
+
+                    ConsoleOutput.getColNumber();
+                    shotCol = scanner.next().charAt(0);
+                    ConsoleInput.inputColValidation(shotCol);
+
                         //check the coordinates on the board of the enemy
                         int [][] enemyboard = enemy.getBoard();
                         if (enemy.getBoard()[shotRow][shotCol] == 0){

@@ -137,7 +137,7 @@ class Main {
                     default:
                         break;
                 }
-                ConsoleOutput.playerTurn(shooterPlayer.getName());
+                ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
 
                 do{//until the shot is valid
 
@@ -167,7 +167,8 @@ class Main {
                     }
 
                 } while(!validShot);
-                enemy.showTable();
+                ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
+                ConsoleInput.pressAnyToContinue();
             } 
         } while(!hasWinner);
         scanner.close();  

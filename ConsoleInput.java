@@ -73,4 +73,12 @@ public class ConsoleInput {
             } while(!validCoordinate);
             
     }
+    public static void pressAnyToContinue(){
+        System.out.println("Press any key to continue to the next player");
+        try{
+            System.in.read();
+        }catch(Exception e){
+            System.out.println("It's not any key. It you want to skip to another player, please press Enter!");
+        }
+    }
 }

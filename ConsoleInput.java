@@ -3,27 +3,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConsoleInput {
-    Scanner scanner = new Scanner(System.in);
+   static Scanner scanner = new Scanner(System.in);
     
- 
 
     public static void getNameOfThePlayers(int i){    
         System.out.println("What is the name of the Player "+ i + " :" );
     }
 
-    // public static void getRowNumber(){    
-    //         int shotRow = Integer.parseInt(scanner.next());
-    //         scanner.next();
-    //         shotRow--; //Because of the index starts with 0
+    public static int getRowNumber(){    
+            int shotRow = Integer.parseInt(scanner.next());
+            shotRow--; //Because of the index starts with 0
+            return shotRow;
+    }
 
-    //    // return 
-    // }
+    public static char getColChar(){    
+        char shotCol = scanner.next().charAt(0);
+        return shotCol;
+}
 
     public static void inputRowValidation(int shotRow){
         boolean validCoordinate = false;
         do {//until the ROW coordinates are valid          
             try{ 
-                    if(shotRow <= 0 || shotRow >= 10){
+                    if(shotRow < 0 || shotRow >= 10){
                         System.out.println("The number is not valid! You need to enter a number between 1 and 9");
                     } else {
                         validCoordinate = true;
@@ -35,8 +37,9 @@ public class ConsoleInput {
             } while(!validCoordinate);
 
     }
-    public static void inputColValidation(char shotCol){
+    public static int inputColValidation (char shotCol){
         boolean validCoordinate = false;
+        int value = 0;
         do { //until the COLUMN coordinates are valid
                 if (Character.isDigit(shotCol)){
                     System.out.println("Error: please do not input a number");
@@ -57,14 +60,17 @@ public class ConsoleInput {
                             put('j',10);
                             put('k',11);
                     }};
-                        int value = charMap.get(shotColToLower);
-                        //shotCol = shotColToLower - 'a';//char to int
+                        value = charMap.get(shotColToLower)-1;
                         validCoordinate = true;
+                        
+
                     } else {
                         System.out.println("Please enter a letter between A-K");
                         validCoordinate = false;
                     }
                 }
+                return value;
             } while(!validCoordinate);
+            
     }
 }

@@ -116,11 +116,7 @@ class Main {
 
         //Shots
         boolean hasWinner = false;
-        int shotRow = 0;
-        char shotCol = 0;
-        //boolean validCoordinate = false;
         boolean validShot = false;
-        int player_hits = 0;
         Player shooterPlayer = null;
         Player enemy = null;
 
@@ -141,150 +137,39 @@ class Main {
                     default:
                         break;
                 }
-
                 ConsoleOutput.playerTurn(shooterPlayer.getName());
 
                 do{//until the shot is valid
 
                     ConsoleOutput.getRowNumber();
-                    ConsoleInput.getRowNumber();
-
-                    // shotRow = scanner.nextInt();
-                    // scanner.next();
-                    // shotRow--; //Because of the index starts with 0
+                    int shotRow = ConsoleInput.getRowNumber();
                     ConsoleInput.inputRowValidation(shotRow);
 
                     ConsoleOutput.getColNumber();
-                    shotCol = scanner.next().charAt(0);
-                    ConsoleInput.inputColValidation(shotCol);
+                    char shotCol = ConsoleInput.getColChar();
+                    int validatedShotCol = ConsoleInput.inputColValidation(shotCol);
 
                         //check the coordinates on the board of the enemy
-                        int [][] enemyboard = enemy.getBoard();
-                        if (enemy.getBoard()[shotRow][shotCol] == 0){
-                            enemyboard[shotRow][shotCol] = -1;
-                            enemy.setBoard(enemyboard);
-                            System.out.println("You missed!");
-                            validShot = true;
+                    int [][] enemyboard = enemy.getBoard();
+                    List<Ship> enemyShips = enemy.getShips();
+                    boolean missed = Player.isMissed(enemyboard, shotRow, validatedShotCol);
+                    boolean hitted = Player.isHitted(enemyboard, shotRow, validatedShotCol, enemyShips);
 
-
-                        } else if(enemy.getBoard()[shotRow][shotCol] == 1){
-                            validShot = true;
-                            enemyboard[shotRow][shotCol] = 2;
-                            enemy.setBoard(enemyboard);
-
-                            // check the ship's other cells, sunk or not!
-                            List<Ship> enemyShips = enemy.getShips();
-                            for(Ship ship : enemyShips){
-                                
-                                if((ship.getStart_x() == shotRow) && (ship.getStart_y() == shotCol)){ // check the cell is a start point for any ship or not
-                                    // only one ship could start at that point, so that is shooted
-                                    ship.shotIncrement(ship);
-                                    ship.itSunked(ship.getShot(), ship.getSize());
-                                } else {                     
-
-                                    if(shotCol == 1){// it is the left side of the board , so we have to check only the first column in right
-                                        if((enemy.getBoard()[shotRow][shotCol+1] == 1)){//the ship is horizontal 
-                                            if((ship.getStart_x() == shotRow) && (ship.getStart_y() < shotCol) && ((shotCol-ship.getStart_y()) < ship.getSize())) {
-                                                // only one ship could start at that point horizontally, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        }else {//the ship is vertical
-                                            if((ship.getStart_y() == shotCol) && (ship.getStart_x() < shotRow) && ((shotRow-ship.getStart_x()) < ship.getSize())) {
-                                                // only one ship could start at that point vertically, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        } 
-                                    }
-                                    else if(shotCol == 11){//it is the last column on the board, so we have to check only the first column in left
-                                        if((enemy.getBoard()[shotRow][shotCol-1] == 1)){//the ship is horizontal 
-                                            if((ship.getStart_x() == shotRow) && (ship.getStart_y() < shotCol) && ((shotCol-ship.getStart_y()) < ship.getSize())) {
-                                                // only one ship could start at that point horizontally, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        }else {//the ship is vertical
-                                            if((ship.getStart_y() == shotCol) && (ship.getStart_x() < shotRow) && ((shotRow-ship.getStart_x()) < ship.getSize())) {
-                                                // only one ship could start at that point vertically, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        }
-
-                                    }
-                                    else if(shotRow == 0){//it is the first row on the table, so we have to check only the first row in down
-                                        if((enemy.getBoard()[shotRow+1][shotCol] == 1)){//the ship is vertical
-                                            if((ship.getStart_y() == shotCol) && (ship.getStart_x() < shotRow) && ((shotRow-ship.getStart_x()) < ship.getSize())) {
-                                                // only one ship could start at that point vertically, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-
-                                        } else {//the ship is horizontal
-                                            if((ship.getStart_x() == shotRow) && (ship.getStart_y() < shotCol) && ((shotCol-ship.getStart_y()) < ship.getSize())) {
-                                                // only one ship could start at that point horizontally, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        }
-                                    }
-
-                                    else if(shotRow == 8){//it is the last row on the table, so we have to check only the last but one row in up
-
-                                        if((enemy.getBoard()[shotRow-1][shotCol] == 1)){//the ship is vertical
-                                            if((ship.getStart_y() == shotCol) && (ship.getStart_x() < shotRow) && ((shotRow-ship.getStart_x()) < ship.getSize())) {
-                                               // only one ship could start at that point vertically, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-
-                                        } else {//the ship is horizontal
-                                            if((ship.getStart_x() == shotRow) && (ship.getStart_y() < shotCol) && ((shotCol-ship.getStart_y()) < ship.getSize())) {
-                                                // only one ship could start at that point horizontally, so that is shooted
-                                                ship.shotIncrement(ship);
-                                                ship.itSunked(ship.getShot(), ship.getSize());
-                                            }
-                                        }
-                                    }
-                                    else if ((enemy.getBoard()[shotRow][shotCol-1] == 1) || (enemy.getBoard()[shotRow][shotCol+1] == 1) ){ // if is not a start point for any ship and the shot is not at the corners, we have to check the next cells, firstly horizontally
-  
-                                        if((ship.getStart_x() == shotRow) && (ship.getStart_y() < shotCol) && ((shotCol-ship.getStart_y()) < ship.getSize())) {
-                                            // only one ship could start at that point horizontally, so that is shooted
-                                            ship.shotIncrement(ship);
-                                            ship.itSunked(ship.getShot(), ship.getSize());
-                                        }
-                                    } else { //enemy ship is vertical
-
-                                        if((ship.getStart_y() == shotCol) && (ship.getStart_x() < shotRow) && ((shotRow-ship.getStart_x()) < ship.getSize())) {
-                                            // only one ship could start at that point vertically, so that is shooted
-                                            ship.shotIncrement(ship);
-                                            ship.itSunked(ship.getShot(), ship.getSize());
-                                        }
-                                    }
-                                };
-                            }
-
-                        //System.out.println("You hit!");
-
-                        shooterPlayer.setHits(shooterPlayer.getHits()+1); 
-                        player_hits = shooterPlayer.getHits();
-                        System.out.println("The number of your hits :" + player_hits);
-                        if(player_hits >= 17){
-                            System.out.println("Congratulations! You won!");
-                            hasWinner = true;
-                            break;
-                        }
-
-                    } else {// the cell is 2 or -1 ;
+                    if (missed){
+                        validShot = true;
+                    } else if (hitted) {
+                        Player.hitIncrement(shooterPlayer);
+                        hasWinner = Player.hasWinner(shooterPlayer);
+                        validShot = true;
+                    }else {// the cell is 2 or -1 ;
                         System.out.println("You have already shot there! Try again!");
                         validShot = false;
                     }
+
                 } while(!validShot);
                 enemy.showTable();
             } 
         } while(!hasWinner);
-        scanner.close();
-        
+        scanner.close();  
     }
 }

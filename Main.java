@@ -9,8 +9,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Welcome.welcomeMessage();
-        Player.showEmptyTable();
+        ConsoleOutput.welcomeMessage();
+        ConsoleInput.chooseGameMode();
+
 
         ArrayList<Player> players= new ArrayList<Player>();// ArrayList for save the players
         for(int i = 1; i <= 2; i++) {
@@ -20,7 +21,7 @@ class Main {
             String player_Name = scanner.next();
 
             //Placement of ships
-            Welcome.welcomePlayer(player_Name);
+            ConsoleOutput.welcomePlayer(player_Name);
             int[] shipsToPlace = {2,3,3,4,5};
             List<Ship> ships_player = new ArrayList<Ship>();
 

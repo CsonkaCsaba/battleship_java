@@ -5,7 +5,29 @@ import java.util.Map;
 public class ConsoleInput {
    static Scanner scanner = new Scanner(System.in);
     
-
+    public static void chooseGameMode(){
+        boolean gameModeValid = false;
+        System.out.println("Please choose the game mode! Enter a number between 1 and 3");
+        do{
+        System.out.println("1. Human vs. Human");
+        System.out.println("2. Human vs. PC");
+        System.out.println("3. PC vs. PC");
+        int gameModeInput = scanner.nextInt();
+        scanner.nextLine();
+        Map<Integer, String> gameModeMap = new HashMap<Integer, String>();
+        gameModeMap.put(1, "Human vs. Human ");
+        gameModeMap.put(2, "Human vs. PC");
+        gameModeMap.put(3, "PC vs. PC");
+       
+            if(gameModeInput >= 1 && gameModeInput <= 3){
+                gameModeValid = true;
+                String gameMode = gameModeMap.get(gameModeInput);
+                System.out.println("Your choice: " + gameMode);
+            } else {
+                System.out.println("The input is not valid! Please enter a number between 1 and 3");
+            }
+        }while(!gameModeValid);
+    }
     public static void getNameOfThePlayers(int i){    
         System.out.println("What is the name of the Player "+ i + " :" );
     }

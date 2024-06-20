@@ -317,4 +317,8 @@ public class Player {
             }
         return false;
     }
+    public static Player createPlayer(String PlayerName, List<Ship> ships_player, int  hits){
+        Player player = new Player(PlayerName, ships_player,0);
+        return player;
+    }
 }

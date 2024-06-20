@@ -5,14 +5,15 @@ import java.util.Map;
 public class ConsoleInput {
    static Scanner scanner = new Scanner(System.in);
     
-    public static void chooseGameMode(){
+    public static int chooseGameMode(){
         boolean gameModeValid = false;
+        int gameModeInput = 0;
         System.out.println("Please choose the game mode! Enter a number between 1 and 3");
         do{
         System.out.println("1. Human vs. Human");
         System.out.println("2. Human vs. PC");
         System.out.println("3. PC vs. PC");
-        int gameModeInput = scanner.nextInt();
+        gameModeInput = scanner.nextInt();
         scanner.nextLine();
         Map<Integer, String> gameModeMap = new HashMap<Integer, String>();
         gameModeMap.put(1, "Human vs. Human ");
@@ -27,6 +28,8 @@ public class ConsoleInput {
                 System.out.println("The input is not valid! Please enter a number between 1 and 3");
             }
         }while(!gameModeValid);
+
+        return gameModeInput;
     }
     public static void getNameOfThePlayers(int i){    
         System.out.println("What is the name of the Player "+ i + " :" );

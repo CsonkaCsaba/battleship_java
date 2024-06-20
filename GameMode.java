@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class GameMode {
     Scanner scanner = new Scanner(System.in);
     public String gameMode1 (int i){ // 1. Human vs. Human
-        ConsoleInput.getNameOfThePlayers(i);
+        ConsoleInput.getNameOfThePlayers(i+1);
         String player_Name = scanner.next();
         ConsoleOutput.welcomePlayer(player_Name);
         return player_Name;

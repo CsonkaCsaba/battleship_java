@@ -10,7 +10,7 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Player player = null;
-        int[] ships = null;
+        int[] ships = Ship.shipsArray();
         ConsoleOutput.welcomeMessage();
         int gameMode = ConsoleInput.chooseGameMode();
         ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
@@ -18,29 +18,32 @@ class Main {
         
             String player_Name;
             if(gameMode == 1){// 1. Human vs. Human
-                for(int i = 1; i <= 2; i++) {
+                for(int i = 0; i <= 1; i++) {
                 GameMode gameModeObj = new GameMode();
                 player_Name = gameModeObj.gameMode1(i);
-                ships = Ship.shipsArray();
                 List<Ship> ships_player = new ArrayList<Ship>();
                 player = Player.createPlayer(player_Name, ships_player, 0);
+                players.add(player);
                 Ship.placeTheShipsGameMode1(ships, player);
                 }
             } else if(gameMode == 2){// 2. Human vs. PC
                 GameMode gameModeObj2 = new GameMode();
                 String [] names = gameModeObj2.gameMode2();
-                ships = Ship.shipsArray();
                 List<Ship> ships_player = new ArrayList<Ship>();
                 Player human = Player.createPlayer(names[0], ships_player, 0);
+                Player PC = Player.createPlayer(names[1], ships_player, 0);
+                players.add(human);
+                players.add(PC);
+
                 //Ship.placeTheShipsGameMode2(ships, human); NEXT STEP!!!
 
-            }else {// PC vs. PC
+            } else {// PC vs. PC
 
 
             }
             
            
-            players.add(player);
+           
             
         
 

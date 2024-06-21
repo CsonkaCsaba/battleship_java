@@ -5,7 +5,7 @@ public class ConsoleOutput {
         System.out.println("Welcome to Battleship!");
         System.out.println("**********************");
         Player.showEmptyTable();        
-        System.out.println("Press the Enter key to choose the game mode: ");
+        ConsoleInput.pressEnterToContinue();
         try{
             System.in.read();
         }catch(Exception e){

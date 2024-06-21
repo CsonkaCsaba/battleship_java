@@ -14,38 +14,33 @@ class Main {
         ConsoleOutput.welcomeMessage();
         int gameMode = ConsoleInput.chooseGameMode();
         ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
+        List<Ship> ships_player = new ArrayList<Ship>();
        
         
             String player_Name;
             if(gameMode == 1){// 1. Human vs. Human
                 for(int i = 0; i <= 1; i++) {
                 GameMode gameModeObj = new GameMode();
-                player_Name = gameModeObj.gameMode1(i);
-                List<Ship> ships_player = new ArrayList<Ship>();
+                player_Name = gameModeObj.namesGameMode1(i);
                 player = Player.createPlayer(player_Name, ships_player, 0);
                 players.add(player);
-                Ship.placeTheShipsGameMode1(ships, player);
+                Ship.placeTheHumanShips(ships, player);
                 }
             } else if(gameMode == 2){// 2. Human vs. PC
                 GameMode gameModeObj2 = new GameMode();
-                String [] names = gameModeObj2.gameMode2();
-                List<Ship> ships_player = new ArrayList<Ship>();
+                String [] names = gameModeObj2.namesGameMode2();
                 Player human = Player.createPlayer(names[0], ships_player, 0);
                 Player PC = Player.createPlayer(names[1], ships_player, 0);
                 players.add(human);
                 players.add(PC);
-
-                //Ship.placeTheShipsGameMode2(ships, human); NEXT STEP!!!
+                Ship.placeTheHumanShips(ships, human);
+                ConsoleInput.pressAnyToContinue();
+                Ship.placeThePcShips(ships, PC);
 
             } else {// PC vs. PC
 
 
             }
-            
-           
-           
-            
-        
 
         //Shots
         boolean hasWinner = false;

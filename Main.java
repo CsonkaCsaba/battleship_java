@@ -5,52 +5,48 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Player player = null;
-        String player_Name;
+        String playerName;
         int[] ships = Ship.shipsArray();
         ConsoleOutput.welcomeMessage();
         int gameMode = ConsoleInput.chooseGameMode();
         ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
-        List<Ship> ships_player = new ArrayList<Ship>();
-       
-        
-            
-            if(gameMode == 1){// 1. Human vs. Human
-                for(int i = 0; i <= 1; i++) {
+        List<Ship> shipsPlayer = new ArrayList<Ship>();
+
+        if (gameMode == 1) {// 1. Human vs. Human
+            for (int i = 0; i <= 1; i++) {
                 GameMode gameModeObj = new GameMode();
-                player_Name = gameModeObj.namesGameMode1(i);
-                player = Player.createPlayer(player_Name, ships_player, 0);
+                playerName = gameModeObj.namesGameMode1(i);
+                player = Player.createPlayer(playerName, shipsPlayer, 0);
                 players.add(player);
                 Ship.placeTheHumanShips(ships, player);
-                }
-            } else if(gameMode == 2){// 2. Human vs. PC
-                GameMode gameModeObj2 = new GameMode();
-                String [] names = gameModeObj2.namesGameMode2();
-                Player human = Player.createPlayer(names[0], ships_player, 0);
-                Player PC = Player.createPlayer(names[1], ships_player, 0);
-                players.add(human);
-                players.add(PC);
-                Ship.placeTheHumanShips(ships, human);
-                Ship.placeThePcShips(ships, PC);
-
-            } else {// PC vs. PC
-
-
             }
+        } else if (gameMode == 2) {// 2. Human vs. PC
+            GameMode gameModeObj2 = new GameMode();
+            String[] names = gameModeObj2.namesGameMode2();
+            Player human = Player.createPlayer(names[0], shipsPlayer, 0);
+            Player PC = Player.createPlayer(names[1], shipsPlayer, 0);
+            players.add(human);
+            players.add(PC);
+            Ship.placeTheHumanShips(ships, human);
+            Ship.placeThePcShips(ships, PC);
 
-        //Shots
+        } else {// PC vs. PC
+
+        }
+
+        // Shots
         boolean hasWinner = false;
         boolean validShot = false;
         Player shooterPlayer = null;
         Player enemy = null;
 
         do {// until we have a winner
-            for(int i = 0; i <= 2; i++){
-                if(i == 2){
+            for (int i = 0; i <= 2; i++) {
+                if (i == 2) {
                     i = 0;
                 }
                 switch (i) {
@@ -67,7 +63,7 @@ class Main {
                 }
                 ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
 
-                do{//until the shot is valid
+                do {// until the shot is valid
 
                     ConsoleOutput.getRowNumber();
                     int shotRow = ConsoleInput.getRowNumber();
@@ -77,28 +73,28 @@ class Main {
                     char shotCol = ConsoleInput.getColChar();
                     int validatedShotCol = ConsoleInput.inputColValidation(shotCol);
 
-                        //check the coordinates on the board of the enemy
-                    int [][] enemyboard = enemy.getBoard();
+                    // check the coordinates on the board of the enemy
+                    int[][] enemyboard = enemy.getBoard();
                     List<Ship> enemyShips = enemy.getShips();
                     boolean missed = Player.isMissed(enemyboard, shotRow, validatedShotCol);
                     boolean hitted = Player.isHitted(enemyboard, shotRow, validatedShotCol, enemyShips);
 
-                    if (missed){
+                    if (missed) {
                         validShot = true;
                     } else if (hitted) {
                         Player.hitIncrement(shooterPlayer);
                         hasWinner = Player.hasWinner(shooterPlayer);
                         validShot = true;
-                    }else {// the cell is 2 or -1 ;
+                    } else {// the cell is 2 or -1 ;
                         System.out.println("You have already shot there! Try again!");
                         validShot = false;
                     }
 
-                } while(!validShot);
+                } while (!validShot);
                 ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
                 ConsoleInput.pressEnterToContinue();
-            } 
-        } while(!hasWinner);
-        scanner.close();  
+            }
+        } while (!hasWinner);
+        scanner.close();
     }
 }

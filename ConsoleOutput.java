@@ -13,6 +13,17 @@ public class ConsoleOutput {
         }
 
     }
+    
+    public static void chooseGameMode(){
+        System.out.println("Please choose the game mode! Enter a number between 1 and 3");
+        System.out.println("1. Human vs. Human");
+        System.out.println("2. Human vs. PC");
+        System.out.println("3. PC vs. PC");
+    }
+
+    public static void invalidGameModeInput(){
+        System.out.println("The input is not valid! Please enter a number between 1 and 3");
+    }
 
     public static void playerTurn(String name, Player enemy) {
         System.out.println(name + ", it's your turn!");

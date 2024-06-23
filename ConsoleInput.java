@@ -6,29 +6,14 @@ public class ConsoleInput {
     static Scanner scanner = new Scanner(System.in);
 
     public static int chooseGameMode() {
-        boolean gameModeValid = false;
         int gameModeInput = 0;
-        System.out.println("Please choose the game mode! Enter a number between 1 and 3");
+        boolean valid;
         do {
-            System.out.println("1. Human vs. Human");
-            System.out.println("2. Human vs. PC");
-            System.out.println("3. PC vs. PC");
+            ConsoleOutput.chooseGameMode();
             gameModeInput = scanner.nextInt();
             scanner.nextLine();
-            Map<Integer, String> gameModeMap = new HashMap<Integer, String>();
-            gameModeMap.put(1, "Human vs. Human ");
-            gameModeMap.put(2, "Human vs. PC");
-            gameModeMap.put(3, "PC vs. PC");
-
-            if (gameModeInput >= 1 && gameModeInput <= 3) {
-                gameModeValid = true;
-                String gameMode = gameModeMap.get(gameModeInput);
-                System.out.println("Your choice: " + gameMode);
-            } else {
-                System.out.println("The input is not valid! Please enter a number between 1 and 3");
-            }
-        } while (!gameModeValid);
-
+            valid = Validation.gameModeValidation(gameModeInput);
+        } while (!valid);
         return gameModeInput;
     }
 

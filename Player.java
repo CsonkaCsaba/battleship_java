@@ -5,15 +5,14 @@ import java.util.List;
 public class Player {
     private String name;
     private int[][] board;
-    private List<Ship> ships; // We need to Create ship objects before construct a Player
+    private List<Ship> ships;
     private int hits;
 
-    // Constructor
-    public Player(String name, List<Ship> ships, int hits) {
+    public Player(String name) {
         this.name = name;
         this.board = new int[9][11];
         this.ships = new ArrayList<Ship>();
-        this.hits = hits;
+        this.hits = 0;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -22,7 +21,6 @@ public class Player {
         }
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }
@@ -55,9 +53,6 @@ public class Player {
         this.hits = hits;
     }
 
-    // methods
-
-    // Add a ship
     public void addShip(Ship ship) {
         this.ships.add(ship);
     }
@@ -68,10 +63,10 @@ public class Player {
             System.out.print(column + " ");
         }
         System.out.println();
-        for (int i = 0; i < board.length; i++) {
-            System.out.print(i + 1 + " ");
-            for (int j = 0; j < board[i].length; j++) {
-                switch (board[i][j]) {
+        for (int row = 0; row < board.length; row++) {
+            System.out.print(row + 1 + " ");
+            for (int col = 0; col < board[row].length; col++) {
+                switch (board[row][col]) {
                     // Hit
                     case 2:
                         System.out.print("+ ");
@@ -79,14 +74,6 @@ public class Player {
                     // Shot, but not hit
                     case -1:
                         System.out.print("X ");
-                        break;
-                    // For check the position of ships
-                    case 1:
-                        System.out.print("- ");
-                        break;
-                    // For check the surrounding of ships
-                    case 3:
-                        System.out.print("- ");
                         break;
                     // Value of matrix is 0 - no action, 1 - ship is there, 3 - the surrounding
                     // cells of the ship
@@ -117,7 +104,6 @@ public class Player {
                     if (col < 10) {
                         this.board[k][col + 1] = 3;
                     }
-
                     placeable = true;
                 } else {
                     return placeable;
@@ -170,24 +156,7 @@ public class Player {
                 this.board[row][end] = 3;
             }
         }
-
         return placeable;
-    }
-
-    public static void showEmptyTable() {
-        char[][] board = new char[9][11];
-        System.out.print("   ");
-        for (char column = 'A'; column <= 'K'; column++) {
-            System.out.print(column + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < board.length; i++) {
-            System.out.print(i + 1 + " ");
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + " -");
-            }
-            System.out.println();
-        }
     }
 
     public static boolean isMissed(int[][] enemyboard, int shotRow, int validatedShotCol) {
@@ -334,10 +303,5 @@ public class Player {
             return true;
         }
         return false;
-    }
-
-    public static Player createPlayer(String PlayerName, List<Ship> shipsPlayer, int hits) {
-        Player player = new Player(PlayerName, shipsPlayer, 0);
-        return player;
     }
 }

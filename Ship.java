@@ -11,7 +11,6 @@ public class Ship {
     private char orientation;
     private int shot;
 
-    // Constructor
     public Ship(int size, int startX, int startY, char orientation) {
         this.size = size;
         this.startX = startX;
@@ -19,8 +18,6 @@ public class Ship {
         this.orientation = orientation;
         this.shot = 0;
     }
-
-    // Getters and setters
 
     public int getSize() {
         return size;
@@ -62,7 +59,6 @@ public class Ship {
         this.shot = shot;
     }
 
-    // methods
     public void itSunked(int shipGetSots, int shipSize) {
 
         if (shipGetSots == shipSize) {
@@ -94,23 +90,21 @@ public class Ship {
             while (getShip) {
 
                 // Get the row number of the first cell
-                System.out.println(
-                        "Please enter the row number of the first cell of the " + ships[k] + " long ship (1-9): ");
+                ConsoleOutput.getShipRow(ships[k]);
                 do {
                     try {
-                        row = Integer.parseInt(scanner.next()); // try-catch!!
+                        row = ConsoleInput.getRowNumber();
                         valid = true;
                     } catch (NumberFormatException e) {
-                        System.out.println("Please enter a number between 1 and 9!");
+                        ConsoleOutput.wrongRowNumber();
                         valid = false;
                     }
                 } while (!valid);
 
                 // Get the column of the first cell
-                System.out
-                        .println("Please enter the letter belongs to the column of the first cell of the ship: (A-K)");
+                ConsoleOutput.getShipCol();
                 do {
-                    char colFromUser = scanner.next().charAt(0); // try-catch!! Need to convert char->int
+                    char colFromUser = scanner.next().charAt(0);
                     if (Character.isDigit(colFromUser)) {
                         System.out.println("Error: please do not input a number");
                         valid = false;
@@ -128,24 +122,13 @@ public class Ship {
 
                 // Get the orientation
                 do {
-                    System.out.println(
-                            "Please choose the orientation of the ship: enter h if horizontal and v if vertical!"); // try-catch!!
+                    ConsoleOutput.getOrientation();
                     orient = scanner.next().charAt(0);
                     getShip = false; // end of while cycle
                     // check if orientation input is correct
                     if (orient == 'h' || orient == 'v') {
                         // vertical and horizontal check
-                        if ((orient == 'v' && (row + ships[k] - 1 > 9)) || orient == 'h' && (col + ships[k] - 1 > 10)) { // for
-                                                                                                                         // example:
-                                                                                                                         // 3
-                                                                                                                         // long
-                                                                                                                         // ship
-                                                                                                                         // to
-                                                                                                                         // row
-                                                                                                                         // 8
-                                                                                                                         // can't
-                                                                                                                         // be
-                                                                                                                         // placed
+                        if ((orient == 'v' && (row + ships[k] > 9)) || orient == 'h' && (col + ships[k] - 1 > 10)) { 
                             System.out.println(
                                     "The ship can't be placed there, the length of the ship is more than the length of the board! Please enter the coordinates again!");
                             getShip = true; // need to get the coordinate again
@@ -160,8 +143,6 @@ public class Ship {
                     }
                 } while (!valid);
 
-                row--; // Because of the index starts with 0
-
                 // Set the values on the player's board + check if it contacts another one
                 boolean canBePlaced = player.inicializeValues(ships[k], row, col, orient);
 
@@ -169,17 +150,12 @@ public class Ship {
                 if (canBePlaced) {
                     Ship newShip = new Ship(ships[k], row, col, orient);
                     player.addShip(newShip);
-
-                    System.out.println("*******************");
-                    System.out.println("The ship is placed!");
-                    System.out.println("*******************");
+                    ConsoleOutput.shipIsPlaced();                    
                 } else {
-                    System.out.println(
-                            "Unfortunately, the ship cannot be placed there, because it is in contact with another one. Please enter the coordinates again!");
+                    ConsoleOutput.shipContactError();
                     getShip = true;
                 }
             }
-
         }
         ConsoleInput.pressEnterToContinue();
 
@@ -211,17 +187,7 @@ public class Ship {
                 } else {
                     orient = 'h';
                 }
-                if ((orient == 'v' && (row + ships[k] - 1 > 9)) || orient == 'h' && (colPC + ships[k] - 1 > 10)) { // for
-                                                                                                                   // example:
-                                                                                                                   // 3
-                                                                                                                   // long
-                                                                                                                   // ship
-                                                                                                                   // to
-                                                                                                                   // row
-                                                                                                                   // 8
-                                                                                                                   // can't
-                                                                                                                   // be
-                                                                                                                   // placed
+                if ((orient == 'v' && (row + ships[k] - 1 > 9)) || orient == 'h' && (colPC + ships[k] - 1 > 10)) {
                     getShip = true; // need to get the coordinate again
                 } else {
                     // row--; //Because of the index starts with 0
@@ -233,10 +199,7 @@ public class Ship {
                     if (canBePlaced) {
                         Ship newShip = new Ship(ships[k], row, colPC, orient);
                         player.addShip(newShip);
-
-                        System.out.println("*******************");
-                        System.out.println("The PC's ship is placed!");
-                        System.out.println("*******************");
+                        ConsoleOutput.shipIsPlaced();
                         getShip = false;
                     } else {
                         getShip = true;

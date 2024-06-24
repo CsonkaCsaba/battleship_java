@@ -5,37 +5,41 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
+enum gameModes {
+    HumanHuman, HumanPC, PCPC
+}
+
 class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Player player = null;
         String playerName;
         int[] ships = Ship.shipsArray();
+
         ConsoleOutput.welcomeMessage();
-        int gameMode = ConsoleInput.chooseGameMode();
+        gameModes gameMode = ConsoleInput.chooseGameMode();
         ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
-        List<Ship> shipsPlayer = new ArrayList<Ship>();
 
-        if (gameMode == 1) {// 1. Human vs. Human
-            for (int i = 0; i <= 1; i++) {
-                GameMode gameModeObj = new GameMode();
-                playerName = gameModeObj.namesGameMode1(i);
-                player = Player.createPlayer(playerName, shipsPlayer, 0);
-                players.add(player);
-                Ship.placeTheHumanShips(ships, player);
-            }
-        } else if (gameMode == 2) {// 2. Human vs. PC
-            GameMode gameModeObj2 = new GameMode();
-            String[] names = gameModeObj2.namesGameMode2();
-            Player human = Player.createPlayer(names[0], shipsPlayer, 0);
-            Player PC = Player.createPlayer(names[1], shipsPlayer, 0);
-            players.add(human);
-            players.add(PC);
-            Ship.placeTheHumanShips(ships, human);
-            Ship.placeThePcShips(ships, PC);
-
-        } else {// PC vs. PC
-
+        switch (gameMode) {
+            case HumanHuman:
+                for (int i = 0; i <= 1; i++) {
+                    GameMode gameModeObj = new GameMode();
+                    playerName = gameModeObj.namesGameMode1(i);
+                    Player player = new Player(playerName);
+                    players.add(player);
+                    Ship.placeTheHumanShips(ships, player);
+                }
+                break;
+            case HumanPC:
+                GameMode gameModeObj2 = new GameMode();
+                String[] names = gameModeObj2.namesGameMode2();
+                Player human = new Player(names[0]);
+                Player PC = new Player(names[1]);
+                players.add(human);
+                players.add(PC);
+                Ship.placeTheHumanShips(ships, human);
+                Ship.placeThePcShips(ships, PC);
+                break;
+            default:
+                System.out.println("PC vs. PC");
         }
 
         // Shots
@@ -95,6 +99,5 @@ class Main {
                 ConsoleInput.pressEnterToContinue();
             }
         } while (!hasWinner);
-        scanner.close();
     }
 }

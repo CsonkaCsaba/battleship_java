@@ -79,4 +79,8 @@ public class ConsoleOutput {
                 "Unfortunately, the ship cannot be placed there, because it is in contact with another one. Please enter the coordinates again!");
     }
 
+    public static void wrongColInput() {
+        System.out.println("The input is not valid! Please enter a letter between A-K!");
+    }
+
 }

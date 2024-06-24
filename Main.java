@@ -71,17 +71,17 @@ class Main {
 
                     ConsoleOutput.getRowNumber();
                     int shotRow = ConsoleInput.getRowNumber();
-                    ConsoleInput.inputRowValidation(shotRow);
+                    int validatedShotRow = Validation.inputRowValidation(shotRow);
 
                     ConsoleOutput.getColNumber();
                     char shotCol = ConsoleInput.getColChar();
-                    int validatedShotCol = ConsoleInput.inputColValidation(shotCol);
+                    int validatedShotCol = Validation.inputColValidation(shotCol);
 
                     // check the coordinates on the board of the enemy
                     int[][] enemyboard = enemy.getBoard();
                     List<Ship> enemyShips = enemy.getShips();
-                    boolean missed = Player.isMissed(enemyboard, shotRow, validatedShotCol);
-                    boolean hitted = Player.isHitted(enemyboard, shotRow, validatedShotCol, enemyShips);
+                    boolean missed = Player.isMissed(enemyboard, validatedShotRow, validatedShotCol);
+                    boolean hitted = Player.isHitted(enemyboard, validatedShotRow, validatedShotCol, enemyShips);
 
                     if (missed) {
                         validShot = true;

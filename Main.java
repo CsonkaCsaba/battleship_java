@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 enum gameModes {
@@ -74,7 +73,7 @@ class Main {
                     int validatedShotRow = Validation.inputRowValidation(shotRow);
 
                     ConsoleOutput.getColNumber();
-                    char shotCol = ConsoleInput.getColChar();
+                    char shotCol = ConsoleInput.getChar();
                     int validatedShotCol = Validation.inputColValidation(shotCol);
 
                     // check the coordinates on the board of the enemy

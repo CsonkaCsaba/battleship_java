@@ -40,7 +40,7 @@ public class ConsoleInput {
         
     }
 
-    public static char getColChar() {
+    public static char getChar() {
         return scanner.next().charAt(0);
     }
 
@@ -52,4 +52,10 @@ public class ConsoleInput {
             System.out.println("It's not Enter key. It you want to skip to another player, please press Enter!");
         }
     }
+
+    public static String getName(){
+        return scanner.next();
+
+    }
+
 }

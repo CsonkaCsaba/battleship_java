@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class Ship {
-    static Scanner scanner = new Scanner(System.in);
+
     private int size;
     private int startX;
     private int startY;
@@ -104,7 +104,7 @@ public class Ship {
                 // Get the column of the first cell
                 ConsoleOutput.getShipCol();
                 do {
-                    char colFromUser = scanner.next().charAt(0);
+                    char colFromUser = ConsoleInput.getChar();
                     if (Character.isDigit(colFromUser)) {
                         System.out.println("Error: please do not input a number");
                         valid = false;
@@ -123,7 +123,7 @@ public class Ship {
                 // Get the orientation
                 do {
                     ConsoleOutput.getOrientation();
-                    orient = scanner.next().charAt(0);
+                    orient = ConsoleInput.getChar();
                     getShip = false; // end of while cycle
                     // check if orientation input is correct
                     if (orient == 'h' || orient == 'v') {

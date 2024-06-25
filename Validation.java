@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
+
 
 public class Validation {
     public static boolean gameModeValidation(int gameModeInput) {
@@ -47,7 +47,7 @@ public class Validation {
             if (Character.isDigit(shotCol)) {
                ConsoleOutput.wrongColInput();
                ConsoleOutput.getColNumber();
-               shotCol = ConsoleInput.getColChar();
+               shotCol = ConsoleInput.getChar();
             } else {
                 char shotColToLower = Character.toLowerCase(shotCol);
                 if (shotColToLower <= 'k') {
@@ -73,7 +73,7 @@ public class Validation {
                     ConsoleOutput.wrongColInput();
                     validCoordinate = false;
                     ConsoleOutput.getColNumber();
-                    shotCol = ConsoleInput.getColChar();
+                    shotCol = ConsoleInput.getChar();
                 }
             }
         }while(!validCoordinate);

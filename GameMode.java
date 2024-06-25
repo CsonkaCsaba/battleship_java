@@ -1,18 +1,15 @@
-import java.util.Scanner;
-
 public class GameMode {
-    Scanner scanner = new Scanner(System.in);
-
+    
     public String namesGameMode1(int i) { // 1. Human vs. Human
         ConsoleInput.getNameOfThePlayers(i + 1);
-        String playerName = scanner.next();
+        String playerName = ConsoleInput.getName();
         ConsoleOutput.welcomePlayer(playerName);
         return playerName;
     }
 
     public String[] namesGameMode2() { // 2. Human vs. PC
         ConsoleInput.getNameOfThePlayers(1);
-        String playerName = scanner.next();
+        String playerName = ConsoleInput.getName();
         ConsoleOutput.welcomePlayer(playerName);
         String[] names = { playerName, "PC" };
         return names;

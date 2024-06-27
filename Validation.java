@@ -13,7 +13,7 @@ public class Validation {
             gameModeMap.put(2, "Human vs. PC");
             gameModeMap.put(3, "PC vs. PC");
             String gameMode = gameModeMap.get(gameModeInput);
-            System.out.println("Your choice: " + gameMode);
+            ConsoleOutput.yourGameModeChoice(gameMode);
         } else {
             ConsoleOutput.invalidGameModeInput();
             gameModeValid = false;

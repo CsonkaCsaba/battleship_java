@@ -58,31 +58,31 @@ public class Player {
     }
 
     public void showTable() {
-        System.out.print("  ");
+        ConsoleOutput.space();
         for (char column = 'A'; column <= 'K'; column++) {
-            System.out.print(column + " ");
+            ConsoleOutput.tableColumnLetter(column);
         }
-        System.out.println();
+        ConsoleOutput.brake();
         for (int row = 0; row < board.length; row++) {
-            System.out.print(row + 1 + " ");
+            ConsoleOutput.tableRowNumber(row);
             for (int col = 0; col < board[row].length; col++) {
                 switch (board[row][col]) {
                     // Hit
                     case 2:
-                        System.out.print("+ ");
+                        ConsoleOutput.hitSign();
                         break;
                     // Shot, but not hit
                     case -1:
-                        System.out.print("X ");
+                        ConsoleOutput.shotNoHit();
                         break;
                     // Value of matrix is 0 - no action, 1 - ship is there, 3 - the surrounding
                     // cells of the ship
                     default:
-                        System.out.print("- ");
+                        ConsoleOutput.tableDefaultSign();
                         break;
                 }
             }
-            System.out.println();
+            ConsoleOutput.brake();
         }
     }
 
@@ -163,7 +163,7 @@ public class Player {
 
         if (enemyboard[shotRow][validatedShotCol] == 0 || enemyboard[shotRow][validatedShotCol] == 3) {
             enemyboard[shotRow][validatedShotCol] = -1;
-            System.out.println("You missed!");
+            ConsoleOutput.missed();
             // enemy.setBoard(enemyboard);
             return true;
         }
@@ -292,14 +292,14 @@ public class Player {
     public static void hitIncrement(Player shooterPlayer) {
         shooterPlayer.setHits(shooterPlayer.getHits() + 1);
         int playerHits = shooterPlayer.getHits();
-        System.out.println("The number of your hits :" + playerHits);
+        ConsoleOutput.numberOfYourHits(playerHits);
 
     }
 
     public static boolean hasWinner(Player shooterPlayer) {
         int playerHits = shooterPlayer.getHits();
         if (playerHits >= 17) {
-            System.out.println("Congratulations! You won!");
+            ConsoleOutput.youWon();
             return true;
         }
         return false;

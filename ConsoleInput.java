@@ -30,9 +30,6 @@ public class ConsoleInput {
         return gameMode;
     }
 
-    public static void getNameOfThePlayers(int playerNumber) {
-        System.out.println("What is the name of the Player " + playerNumber + " :");
-    }
 
     public static int getRowNumber() {
         int rowInput = Integer.parseInt(scanner.next()) - 1;// Because of the index starts with 0
@@ -42,15 +39,6 @@ public class ConsoleInput {
 
     public static char getChar() {
         return scanner.next().charAt(0);
-    }
-
-    public static void pressEnterToContinue() {
-        System.out.println("Press Enter key to continue!");
-        try {
-            System.in.read();
-        } catch (Exception e) {
-            System.out.println("It's not Enter key. It you want to skip to another player, please press Enter!");
-        }
     }
 
     public static String getName(){

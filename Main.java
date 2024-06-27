@@ -38,7 +38,7 @@ class Main {
                 Ship.placeThePcShips(ships, PC);
                 break;
             default:
-                System.out.println("PC vs. PC");
+                ConsoleOutput.PCvsPC();
         }
 
         // Shots
@@ -89,13 +89,13 @@ class Main {
                         hasWinner = Player.hasWinner(shooterPlayer);
                         validShot = true;
                     } else {// the cell is 2 or -1 ;
-                        System.out.println("You have already shot there! Try again!");
+                        ConsoleOutput.alreadyShotthere();
                         validShot = false;
                     }
 
                 } while (!validShot);
                 ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
-                ConsoleInput.pressEnterToContinue();
+                ConsoleOutput.pressEnterToContinue();
             }
         } while (!hasWinner);
     }

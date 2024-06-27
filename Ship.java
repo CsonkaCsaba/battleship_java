@@ -62,9 +62,9 @@ public class Ship {
     public void itSunked(int shipGetSots, int shipSize) {
 
         if (shipGetSots == shipSize) {
-            System.out.println("The ship is sunked!");
+            ConsoleOutput.sunked();
         } else {
-            System.out.println("You hit!");
+            ConsoleOutput.hit();
         }
     }
 
@@ -106,7 +106,7 @@ public class Ship {
                 do {
                     char colFromUser = ConsoleInput.getChar();
                     if (Character.isDigit(colFromUser)) {
-                        System.out.println("Error: please do not input a number");
+                        ConsoleOutput.itsNotChar();
                         valid = false;
                     } else {
                         char colToLower = Character.toLowerCase(colFromUser);
@@ -114,7 +114,7 @@ public class Ship {
                             col = colToLower - 'a';// char to int
                             valid = true;
                         } else {
-                            System.out.println("Please enter a letter between A-K");
+                            ConsoleOutput.wrongColInput();
                             valid = false;
                         }
                     }
@@ -129,16 +129,14 @@ public class Ship {
                     if (orient == 'h' || orient == 'v') {
                         // vertical and horizontal check
                         if ((orient == 'v' && (row + ships[k] > 9)) || orient == 'h' && (col + ships[k] - 1 > 10)) { 
-                            System.out.println(
-                                    "The ship can't be placed there, the length of the ship is more than the length of the board! Please enter the coordinates again!");
+                            ConsoleOutput.shipPlaceError();
                             getShip = true; // need to get the coordinate again
                             valid = false; // break the do-while for orientation
                         } else {
                             valid = true;
                         }
                     } else {
-                        System.out.println(
-                                "Please type 'h' if you want the ship horizontal or type 'v' if you want it to vertical");
+                        ConsoleOutput.horizontalOrVertical();
                         valid = false;
                     }
                 } while (!valid);
@@ -157,7 +155,7 @@ public class Ship {
                 }
             }
         }
-        ConsoleInput.pressEnterToContinue();
+        ConsoleOutput.pressEnterToContinue();
 
     }
 

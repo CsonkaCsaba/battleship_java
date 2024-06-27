@@ -4,7 +4,7 @@ public class ConsoleOutput {
         System.out.println("**********************");
         System.out.println("Welcome to Battleship!");
         System.out.println("**********************");
-        ConsoleInput.pressEnterToContinue();
+        ConsoleOutput.pressEnterToContinue();
         try {
             System.in.read();
         } catch (Exception e) {
@@ -83,4 +83,89 @@ public class ConsoleOutput {
         System.out.println("The input is not valid! Please enter a letter between A-K!");
     }
 
+    public static void getNameOfThePlayers(int playerNumber) {
+        System.out.println("What is the name of the Player " + playerNumber + " :");
+    }
+
+    public static void pressEnterToContinue() {
+        System.out.println("Press Enter key to continue!");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+            System.out.println("It's not Enter key. It you want to skip to another player, please press Enter!");
+        }
+    }
+
+    public static void PCvsPC() {
+        System.out.println("PC vs. PC");
+    }
+
+    public static void alreadyShotthere() {
+        System.out.println("You have already shot there! Try again!");
+    }
+
+    public static void missed() {
+        System.out.println("You missed!");
+    }
+
+    public static void numberOfYourHits(int playerHits) {
+        System.out.println("The number of your hits :" + playerHits);
+    }
+
+    public static void youWon() {
+        System.out.println("Congratulations! You won!");
+    }
+
+    public static void sunked() {
+        System.out.println("The ship is sunked!");
+    }
+
+    public static void hit() {
+        System.out.println("You hit!");
+    }
+
+    public static void itsNotChar() {
+        System.out.println("Error: please do not input a number");
+    }
+
+    public static void shipPlaceError() {
+        System.out.println(
+                "The ship can't be placed there, the length of the ship is more than the length of the board! Please enter the coordinates again!");
+    }
+
+    public static void horizontalOrVertical() {
+        System.out.println("Please type 'h' if you want the ship horizontal or type 'v' if you want it to vertical");
+    }
+
+    public static void yourGameModeChoice(String gamemode){
+        System.out.println("Your choice: " + gamemode);
+    }
+
+    public static void space(){
+        System.out.print("  ");
+    }
+
+    public static void brake(){
+        System.out.println();
+    }
+
+    public static void tableColumnLetter(char column){
+        System.out.print(column + " ");
+    }
+
+    public static void tableRowNumber(int row){
+        System.out.print(row + 1 + " ");
+    }
+
+    public static void hitSign() {
+        System.out.print("+ ");
+    }
+
+    public static void shotNoHit(){
+        System.out.print("X ");
+    }
+    
+    public static void tableDefaultSign(){
+        System.out.print("- ");
+    }
 }

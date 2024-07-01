@@ -4,9 +4,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-enum gameModes {
-    HumanHuman, HumanPC, PCPC
-}
+
 
 class Main {
     public static void main(String[] args) {
@@ -14,14 +12,14 @@ class Main {
         int[] ships = Ship.shipsArray();
 
         ConsoleOutput.welcomeMessage();
-        gameModes gameMode = ConsoleInput.chooseGameMode();
+        GameModes gameMode = ConsoleInput.chooseGameMode();
         ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
 
         switch (gameMode) {
             case HumanHuman:
-                for (int i = 0; i <= 1; i++) {
+            for (int playerNumber = 1; playerNumber <= 2; playerNumber++) {
                     GameMode gameModeObj = new GameMode();
-                    playerName = gameModeObj.namesGameMode1(i);
+                    playerName = gameModeObj.namesGameMode1(playerNumber);
                     Player player = new Player(playerName);
                     players.add(player);
                     Ship.placeTheHumanShips(ships, player);
@@ -48,18 +46,18 @@ class Main {
         Player enemy = null;
 
         do {// until we have a winner
-            for (int i = 0; i <= 2; i++) {
-                if (i == 2) {
-                    i = 0;
+            for (int playerNumber = 0; playerNumber <= 2; playerNumber++) {
+                if (playerNumber == 2) {
+                    playerNumber = 0;
                 }
-                switch (i) {
+                switch (playerNumber) {
                     case 0:
-                        shooterPlayer = players.get(0);
-                        enemy = players.get(1);
+                        shooterPlayer = players.get(playerNumber);
+                        enemy = players.get(playerNumber+1);
                         break;
                     case 1:
-                        shooterPlayer = players.get(1);
-                        enemy = players.get(0);
+                        shooterPlayer = players.get(playerNumber);
+                        enemy = players.get(playerNumber-1);
                         break;
                     default:
                         break;
@@ -69,8 +67,7 @@ class Main {
                 do {// until the shot is valid
 
                     ConsoleOutput.getRowNumber();
-                    int shotRow = ConsoleInput.getRowNumber();
-                    int validatedShotRow = Validation.inputRowValidation(shotRow);
+                    int validatedShotRow = Validation.inputRowValidation();
 
                     ConsoleOutput.getColNumber();
                     char shotCol = ConsoleInput.getChar();

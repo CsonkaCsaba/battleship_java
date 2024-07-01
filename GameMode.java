@@ -1,7 +1,11 @@
+enum GameModes {
+    HumanHuman, HumanPC, PCPC
+}
+
 public class GameMode {
     
-    public String namesGameMode1(int i) { // 1. Human vs. Human
-        ConsoleOutput.getNameOfThePlayers(i + 1);
+    public String namesGameMode1(int playerNumber) { // 1. Human vs. Human
+        ConsoleOutput.getNameOfThePlayers(playerNumber);
         String playerName = ConsoleInput.getName();
         ConsoleOutput.welcomePlayer(playerName);
         return playerName;

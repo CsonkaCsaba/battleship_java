@@ -21,23 +21,22 @@ public class Validation {
         return gameModeValid;
     }
 
-    public static int inputRowValidation(int shotRow) {
-        boolean validCoordinate = false;
+    public static int inputRowValidation() {
+        int rowInput = 0;
+        boolean validate = false;
         do{// until the ROW coordinates are valid
             try {
-                //ConsoleInput.getRowNumber();
-                if (shotRow < 0 || shotRow >= 10) {
+                rowInput = ConsoleInput.getRowNumber();
+                if (rowInput <= 0 || rowInput >= 10) {
                     ConsoleOutput.wrongRowNumber();
-                    shotRow = ConsoleInput.getRowNumber();
-                   
                 } else {
-                    validCoordinate = true;
+                    validate = true;
                 }
             } catch (NumberFormatException e) {
                 ConsoleOutput.wrongRowNumber();
             }
-        }while(!validCoordinate);
-        return shotRow;
+        }while(!validate);
+        return rowInput-1; 
     }
 
     public static int inputColValidation(char shotCol) {

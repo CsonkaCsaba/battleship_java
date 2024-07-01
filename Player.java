@@ -14,9 +14,9 @@ public class Player {
         this.ships = new ArrayList<Ship>();
         this.hits = 0;
 
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = 0;
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                board[row][col] = 0;
             }
         }
     }
@@ -203,7 +203,7 @@ public class Player {
                                 ship.itSunked(ship.getShot(), ship.getSize());
                             }
                         }
-                    } else if (validatedShotCol == 11) {// it is the last column on the board, so we have to check only
+                    } else if (validatedShotCol == 10) {// it is the last column on the board, so we have to check only
                                                         // the first column in left
                         if ((enemyboard[shotRow][validatedShotCol - 1] == 1)) {// the ship is horizontal
                             if ((ship.getStartX() == shotRow) && (ship.getStartY() < validatedShotCol)

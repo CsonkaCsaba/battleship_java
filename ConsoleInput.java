@@ -5,10 +5,10 @@ import java.util.Map;
 public class ConsoleInput {
     static Scanner scanner = new Scanner(System.in);
 
-    public static gameModes chooseGameMode() {
+    public static GameModes chooseGameMode() {
         int gameModeInput = 0;
         boolean valid;
-        gameModes gameMode;
+        GameModes gameMode;
 
         do {
             ConsoleOutput.chooseGameMode();
@@ -19,31 +19,28 @@ public class ConsoleInput {
 
         switch (gameModeInput) {
             case 1:
-                gameMode = gameModes.HumanHuman;
+                gameMode = GameModes.HumanHuman;
                 break;
             case 2:
-                gameMode = gameModes.HumanPC;
+                gameMode = GameModes.HumanPC;
                 break;
             default:
-                gameMode = gameModes.PCPC;
+                gameMode = GameModes.PCPC;
         }
         return gameMode;
     }
 
-
     public static int getRowNumber() {
         int rowInput = Integer.parseInt(scanner.next()) - 1;// Because of the index starts with 0
-         return rowInput;
-        
+        return rowInput;
     }
 
     public static char getChar() {
         return scanner.next().charAt(0);
     }
 
-    public static String getName(){
+    public static String getName() {
         return scanner.next();
-
     }
 
 }

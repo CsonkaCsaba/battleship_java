@@ -39,16 +39,17 @@ public class Validation {
         return rowInput-1; 
     }
 
-    public static int inputColValidation(char shotCol) {
+    public static int inputColValidation() {
+
         boolean validCoordinate = false;
         int value = 0;
         do{// until the COLUMN coordinates are valid
-            if (Character.isDigit(shotCol)) {
+            char colFromUser = ConsoleInput.getChar();
+            if (Character.isDigit(colFromUser)) {
                ConsoleOutput.wrongColInput();
-               ConsoleOutput.getColNumber();
-               shotCol = ConsoleInput.getChar();
+               colFromUser = ConsoleInput.getChar();
             } else {
-                char shotColToLower = Character.toLowerCase(shotCol);
+                char shotColToLower = Character.toLowerCase(colFromUser);
                 if (shotColToLower <= 'k') {
                     Map<Character, Integer> charMap = new HashMap<>() {
                         {
@@ -72,7 +73,7 @@ public class Validation {
                     ConsoleOutput.wrongColInput();
                     validCoordinate = false;
                     ConsoleOutput.getColNumber();
-                    shotCol = ConsoleInput.getChar();
+                    colFromUser = ConsoleInput.getChar();
                 }
             }
         }while(!validCoordinate);

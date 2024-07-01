@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 
-
 class Main {
     public static void main(String[] args) {
         String playerName;
@@ -17,7 +16,7 @@ class Main {
 
         switch (gameMode) {
             case HumanHuman:
-            for (int playerNumber = 1; playerNumber <= 2; playerNumber++) {
+                for (int playerNumber = 1; playerNumber <= 2; playerNumber++) {
                     GameMode gameModeObj = new GameMode();
                     playerName = gameModeObj.namesGameMode1(playerNumber);
                     Player player = new Player(playerName);
@@ -70,8 +69,7 @@ class Main {
                     int validatedShotRow = Validation.inputRowValidation();
 
                     ConsoleOutput.getColNumber();
-                    char shotCol = ConsoleInput.getChar();
-                    int validatedShotCol = Validation.inputColValidation(shotCol);
+                    int validatedShotCol = Validation.inputColValidation();
 
                     // check the coordinates on the board of the enemy
                     int[][] enemyboard = enemy.getBoard();

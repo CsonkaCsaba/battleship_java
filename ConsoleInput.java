@@ -31,8 +31,7 @@ public class ConsoleInput {
     }
 
     public static int getRowNumber() {
-        int rowInput = Integer.parseInt(scanner.next()) - 1;// Because of the index starts with 0
-        return rowInput;
+        return Integer.parseInt(scanner.next());
     }
 
     public static char getChar() {

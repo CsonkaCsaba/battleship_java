@@ -161,8 +161,9 @@ public class Player {
 
     public static boolean isMissed(int[][] enemyboard, int shotRow, int validatedShotCol) {
 
+        //cell's value is 0 if it is empty and 3 if it a neighbor of a ship 
         if (enemyboard[shotRow][validatedShotCol] == 0 || enemyboard[shotRow][validatedShotCol] == 3) {
-            enemyboard[shotRow][validatedShotCol] = -1;
+            enemyboard[shotRow][validatedShotCol] = -1; //shot, but no ship there
             ConsoleOutput.missed();
             // enemy.setBoard(enemyboard);
             return true;
@@ -173,7 +174,7 @@ public class Player {
     public static boolean isHitted(int[][] enemyboard, int shotRow, int validatedShotCol, List<Ship> enemyShips) {
 
         if (enemyboard[shotRow][validatedShotCol] == 1) {
-            enemyboard[shotRow][validatedShotCol] = 2;
+            enemyboard[shotRow][validatedShotCol] = 2; 
 
             // check the ship's other cells, sunk or not!
             for (Ship ship : enemyShips) {

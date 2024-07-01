@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 public class Ship {
 
     private int size;
@@ -91,28 +90,11 @@ public class Ship {
 
                 // Get the row number of the first cell
                 ConsoleOutput.getShipRow(ships[shipNumber]);
-                ConsoleOutput.getRowNumber();
                 row = Validation.inputRowValidation();
-                //row = ConsoleInput.getRowNumber();
 
                 // Get the column of the first cell
                 ConsoleOutput.getShipCol();
-                do {
-                    char colFromUser = ConsoleInput.getChar();
-                    if (Character.isDigit(colFromUser)) {
-                        ConsoleOutput.itsNotChar();
-                        valid = false;
-                    } else {
-                        char colToLower = Character.toLowerCase(colFromUser);
-                        if (colToLower <= 'k') {
-                            col = colToLower - 'a';// char to int
-                            valid = true;
-                        } else {
-                            ConsoleOutput.wrongColInput();
-                            valid = false;
-                        }
-                    }
-                } while (!valid);
+                col = Validation.inputColValidation();
 
                 // Get the orientation
                 do {
@@ -122,7 +104,8 @@ public class Ship {
                     // check if orientation input is correct
                     if (orient == 'h' || orient == 'v') {
                         // vertical and horizontal check
-                        if ((orient == 'v' && (row + ships[shipNumber] > 9)) || orient == 'h' && (col + ships[shipNumber] - 1 > 10)) { 
+                        if ((orient == 'v' && (row + ships[shipNumber] > 9))
+                                || orient == 'h' && (col + ships[shipNumber] - 1 > 10)) {
                             ConsoleOutput.shipPlaceError();
                             getShip = true; // need to get the coordinate again
                             valid = false; // break the do-while for orientation
@@ -142,7 +125,7 @@ public class Ship {
                 if (canBePlaced) {
                     Ship newShip = new Ship(ships[shipNumber], row, col, orient);
                     player.addShip(newShip);
-                    ConsoleOutput.shipIsPlaced();                    
+                    ConsoleOutput.shipIsPlaced();
                 } else {
                     ConsoleOutput.shipContactError();
                     getShip = true;
@@ -150,7 +133,6 @@ public class Ship {
             }
         }
         ConsoleOutput.pressEnterToContinue();
-
     }
 
     public static void placeThePcShips(int[] ships, Player player) {
@@ -162,10 +144,10 @@ public class Ship {
 
             while (getShip) {
                 // Get the row number of the first cell
-                int row = random.nextInt(8);
+                int row = random.nextInt(8)+1;
 
                 // Get the column of the first cell
-                int colPC = random.nextInt(10);
+                int colPC = random.nextInt(10)+1;
 
                 // Get the orientation
                 int orientation = random.nextInt(2);
@@ -179,10 +161,11 @@ public class Ship {
                 } else {
                     orient = 'h';
                 }
-                if ((orient == 'v' && (row + ships[shipNumber] - 1 > 9)) || orient == 'h' && (colPC + ships[shipNumber] - 1 > 10)) {
+                if ((orient == 'v' && (row + ships[shipNumber] - 1 > 9))
+                        || orient == 'h' && (colPC + ships[shipNumber] - 1 > 10)) {
                     getShip = true; // need to get the coordinate again
                 } else {
-                    // row--; //Because of the index starts with 0
+                    //row--; //Because of the index starts with 0
 
                     // Set the values on the player's board + check if it contacts another one
                     boolean canBePlaced = player.inicializeValues(ships[shipNumber], row, colPC, orient);

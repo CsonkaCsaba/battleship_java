@@ -47,7 +47,6 @@ public class Validation {
             char colFromUser = ConsoleInput.getChar();
             if (Character.isDigit(colFromUser)) {
                ConsoleOutput.wrongColInput();
-               colFromUser = ConsoleInput.getChar();
             } else {
                 char shotColToLower = Character.toLowerCase(colFromUser);
                 if (shotColToLower <= 'k') {
@@ -71,12 +70,10 @@ public class Validation {
 
                 } else {
                     ConsoleOutput.wrongColInput();
-                    validCoordinate = false;
-                    ConsoleOutput.getColNumber();
-                    colFromUser = ConsoleInput.getChar();
                 }
             }
         }while(!validCoordinate);
         return value;
     }
+    
 }

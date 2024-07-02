@@ -164,7 +164,6 @@ public class Player {
         //cell's value is 0 if it is empty and 3 if it a neighbor of a ship 
         if (enemyboard[shotRow][validatedShotCol] == 0 || enemyboard[shotRow][validatedShotCol] == 3) {
             enemyboard[shotRow][validatedShotCol] = -1; //shot, but no ship there
-            ConsoleOutput.missed();
             // enemy.setBoard(enemyboard);
             return true;
         }
@@ -305,4 +304,28 @@ public class Player {
         }
         return false;
     }
+
+    public static ArrayList<Player> getPlayers (int playerNumber, ArrayList <Player> players) {
+    ArrayList <Player> playersWithNames = new ArrayList<Player>();
+    Player shooterPlayer = null;
+    Player enemy = null;
+       switch (playerNumber) {
+            case 0:
+                shooterPlayer = players.get(playerNumber);
+                playersWithNames.add(shooterPlayer);
+                enemy = players.get(playerNumber+1);
+                playersWithNames.add(enemy);
+                return  playersWithNames;
+            case 1:
+                shooterPlayer = players.get(playerNumber);
+                playersWithNames.add(shooterPlayer);
+                enemy = players.get(playerNumber-1);
+                playersWithNames.add(enemy);
+                return  playersWithNames;
+            default:
+                break;
+            }
+        return playersWithNames;
+    }
+    
 }

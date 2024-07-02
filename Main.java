@@ -23,6 +23,7 @@ class Main {
                     players.add(player);
                     Ship.placeTheHumanShips(ships, player);
                 }
+                GameMode.getShotGameMode1(players);
                 break;
             case HumanPC:
                 GameMode gameModeObj2 = new GameMode();
@@ -33,65 +34,12 @@ class Main {
                 players.add(PC);
                 Ship.placeTheHumanShips(ships, human);
                 Ship.placeThePcShips(ships, PC);
+                //GameMode.getShotGameMode2(players);
                 break;
             default:
                 ConsoleOutput.PCvsPC();
+         }
         }
-
-        // Shots
-        boolean hasWinner = false;
-        boolean validShot = false;
-        Player shooterPlayer = null;
-        Player enemy = null;
-
-        do {// until we have a winner
-            for (int playerNumber = 0; playerNumber <= 2; playerNumber++) {
-                if (playerNumber == 2) {
-                    playerNumber = 0;
-                }
-                switch (playerNumber) {
-                    case 0:
-                        shooterPlayer = players.get(playerNumber);
-                        enemy = players.get(playerNumber+1);
-                        break;
-                    case 1:
-                        shooterPlayer = players.get(playerNumber);
-                        enemy = players.get(playerNumber-1);
-                        break;
-                    default:
-                        break;
-                }
-                ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
-
-                do {// until the shot is valid
-
-                    ConsoleOutput.getRowNumber();
-                    int validatedShotRow = Validation.inputRowValidation();
-
-                    ConsoleOutput.getColNumber();
-                    int validatedShotCol = Validation.inputColValidation();
-
-                    // check the coordinates on the board of the enemy
-                    int[][] enemyboard = enemy.getBoard();
-                    List<Ship> enemyShips = enemy.getShips();
-                    boolean missed = Player.isMissed(enemyboard, validatedShotRow, validatedShotCol);
-                    boolean hitted = Player.isHitted(enemyboard, validatedShotRow, validatedShotCol, enemyShips);
-
-                    if (missed) {
-                        validShot = true;
-                    } else if (hitted) {
-                        Player.hitIncrement(shooterPlayer);
-                        hasWinner = Player.hasWinner(shooterPlayer);
-                        validShot = true;
-                    } else {// the cell is 2 or -1 ;
-                        ConsoleOutput.alreadyShotthere();
-                        validShot = false;
-                    }
-
-                } while (!validShot);
-                ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
-                ConsoleOutput.pressEnterToContinue();
-            }
-        } while (!hasWinner);
     }
-}
+
+

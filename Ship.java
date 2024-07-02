@@ -144,10 +144,10 @@ public class Ship {
 
             while (getShip) {
                 // Get the row number of the first cell
-                int row = random.nextInt(8)+1;
+                int row = random.nextInt(8-1);
 
                 // Get the column of the first cell
-                int colPC = random.nextInt(10)+1;
+                int colPC = random.nextInt(10-1);
 
                 // Get the orientation
                 int orientation = random.nextInt(2);

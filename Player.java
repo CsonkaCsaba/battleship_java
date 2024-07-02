@@ -57,7 +57,7 @@ public class Player {
         this.ships.add(ship);
     }
 
-    public void showTable() {
+    public void showTable(boolean showShip) {
         ConsoleOutput.space();
         for (char column = 'A'; column <= 'K'; column++) {
             ConsoleOutput.tableColumnLetter(column);
@@ -75,8 +75,13 @@ public class Player {
                     case -1:
                         ConsoleOutput.shotNoHit();
                         break;
-                    // Value of matrix is 0 - no action, 1 - ship is there, 3 - the surrounding
-                    // cells of the ship
+                    case 1:
+                        if (showShip) {
+                            ConsoleOutput.showShip();
+                            break;
+                        }
+                        // Value of matrix is 0 - no action, 1 - ship is there, 3 - the surrounding
+                        // cells of the ship
                     default:
                         ConsoleOutput.tableDefaultSign();
                         break;
@@ -161,9 +166,9 @@ public class Player {
 
     public static boolean isMissed(int[][] enemyboard, int shotRow, int validatedShotCol) {
 
-        //cell's value is 0 if it is empty and 3 if it a neighbor of a ship 
+        // cell's value is 0 if it is empty and 3 if it a neighbor of a ship
         if (enemyboard[shotRow][validatedShotCol] == 0 || enemyboard[shotRow][validatedShotCol] == 3) {
-            enemyboard[shotRow][validatedShotCol] = -1; //shot, but no ship there
+            enemyboard[shotRow][validatedShotCol] = -1; // shot, but no ship there
             // enemy.setBoard(enemyboard);
             return true;
         }
@@ -173,7 +178,7 @@ public class Player {
     public static boolean isHitted(int[][] enemyboard, int shotRow, int validatedShotCol, List<Ship> enemyShips) {
 
         if (enemyboard[shotRow][validatedShotCol] == 1) {
-            enemyboard[shotRow][validatedShotCol] = 2; 
+            enemyboard[shotRow][validatedShotCol] = 2;
 
             // check the ship's other cells, sunk or not!
             for (Ship ship : enemyShips) {
@@ -243,7 +248,6 @@ public class Player {
 
                     else if (shotRow == 8) {// it is the last row on the table, so we have to check only the last but
                                             // one row in up
-
                         if ((enemyboard[shotRow - 1][validatedShotCol] == 1)) {// the ship is vertical
                             if ((ship.getStartY() == validatedShotCol) && (ship.getStartX() < shotRow)
                                     && ((shotRow - ship.getStartX()) < ship.getSize())) {
@@ -265,7 +269,6 @@ public class Player {
                                                                                    // ship and the shot is not at the
                                                                                    // corners, we have to check the next
                                                                                    // cells, firstly horizontally
-
                         if ((ship.getStartX() == shotRow) && (ship.getStartY() < validatedShotCol)
                                 && ((validatedShotCol - ship.getStartY()) < ship.getSize())) {
                             // only one ship could start at that point horizontally, so that is shooted
@@ -273,7 +276,6 @@ public class Player {
                             ship.itSunked(ship.getShot(), ship.getSize());
                         }
                     } else { // enemy ship is vertical
-
                         if ((ship.getStartY() == validatedShotCol) && (ship.getStartX() < shotRow)
                                 && ((shotRow - ship.getStartX()) < ship.getSize())) {
                             // only one ship could start at that point vertically, so that is shooted
@@ -293,7 +295,6 @@ public class Player {
         shooterPlayer.setHits(shooterPlayer.getHits() + 1);
         int playerHits = shooterPlayer.getHits();
         ConsoleOutput.numberOfYourHits(playerHits);
-
     }
 
     public static boolean hasWinner(Player shooterPlayer) {
@@ -304,28 +305,4 @@ public class Player {
         }
         return false;
     }
-
-    public static ArrayList<Player> getPlayers (int playerNumber, ArrayList <Player> players) {
-    ArrayList <Player> playersWithNames = new ArrayList<Player>();
-    Player shooterPlayer = null;
-    Player enemy = null;
-       switch (playerNumber) {
-            case 0:
-                shooterPlayer = players.get(playerNumber);
-                playersWithNames.add(shooterPlayer);
-                enemy = players.get(playerNumber+1);
-                playersWithNames.add(enemy);
-                return  playersWithNames;
-            case 1:
-                shooterPlayer = players.get(playerNumber);
-                playersWithNames.add(shooterPlayer);
-                enemy = players.get(playerNumber-1);
-                playersWithNames.add(enemy);
-                return  playersWithNames;
-            default:
-                break;
-            }
-        return playersWithNames;
-    }
-    
 }

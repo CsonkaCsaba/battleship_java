@@ -31,7 +31,7 @@ public class ConsoleOutput {
     public static void playerTurn(String name, Player enemy) {
         System.out.println(name + ", it's your turn!");
         System.out.println("Your opponent's table:");
-        enemy.showTable();
+        enemy.showTable(false);
     }
 
     public static void welcomePlayer(String name) {
@@ -65,7 +65,7 @@ public class ConsoleOutput {
 
     public static void tableAfterShot(String name, Player enemy) {
         System.out.println("The table after " + name + " 's shot: ");
-        enemy.showTable();
+        enemy.showTable(false);
     }
 
     public static void shipIsPlaced() {
@@ -137,23 +137,23 @@ public class ConsoleOutput {
         System.out.println("Please type 'h' if you want the ship horizontal or type 'v' if you want it to vertical");
     }
 
-    public static void yourGameModeChoice(String gamemode){
+    public static void yourGameModeChoice(String gamemode) {
         System.out.println("Your choice: " + gamemode);
     }
 
-    public static void space(){
+    public static void space() {
         System.out.print("  ");
     }
 
-    public static void brake(){
+    public static void brake() {
         System.out.println();
     }
 
-    public static void tableColumnLetter(char column){
+    public static void tableColumnLetter(char column) {
         System.out.print(column + " ");
     }
 
-    public static void tableRowNumber(int row){
+    public static void tableRowNumber(int row) {
         System.out.print(row + 1 + " ");
     }
 
@@ -161,11 +161,20 @@ public class ConsoleOutput {
         System.out.print("+ ");
     }
 
-    public static void shotNoHit(){
+    public static void shotNoHit() {
         System.out.print("X ");
     }
-    
-    public static void tableDefaultSign(){
+
+    public static void showShip() {
+        System.out.print("O ");
+    }
+
+    public static void tableDefaultSign() {
         System.out.print("- ");
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

@@ -18,6 +18,7 @@ class Main {
             case HumanHuman:
                 for (int playerNumber = 1; playerNumber <= 2; playerNumber++) {
                     GameMode gameModeObj = new GameMode();
+                    ConsoleOutput.clearScreen();
                     playerName = gameModeObj.namesGameMode1(playerNumber);
                     Player player = new Player(playerName);
                     players.add(player);

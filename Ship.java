@@ -88,16 +88,17 @@ public class Ship {
 
             while (getShip) {
 
-                // Get the row number of the first cell
-                ConsoleOutput.getShipRow(ships[shipNumber]);
-                row = Validation.inputRowValidation();
-
-                // Get the column of the first cell
-                ConsoleOutput.getShipCol();
-                col = Validation.inputColValidation();
-
-                // Get the orientation
+                
                 do {
+                    // Get the row number of the first cell
+                    ConsoleOutput.getShipRow(ships[shipNumber]);
+                    row = Validation.inputRowValidation();
+                    
+                    // Get the column of the first cell
+                    ConsoleOutput.getShipCol();
+                    col = Validation.inputColValidation();
+
+                    // Get the orientation
                     ConsoleOutput.getOrientation();
                     orient = ConsoleInput.getChar();
                     getShip = false; // end of while cycle
@@ -126,6 +127,7 @@ public class Ship {
                     Ship newShip = new Ship(ships[shipNumber], row, col, orient);
                     player.addShip(newShip);
                     ConsoleOutput.shipIsPlaced();
+                    player.showTable(true);
                 } else {
                     ConsoleOutput.shipContactError();
                     getShip = true;
@@ -144,10 +146,10 @@ public class Ship {
 
             while (getShip) {
                 // Get the row number of the first cell
-                int row = random.nextInt(8-1);
+                int row = random.nextInt(8 - 1);
 
                 // Get the column of the first cell
-                int colPC = random.nextInt(10-1);
+                int colPC = random.nextInt(10 - 1);
 
                 // Get the orientation
                 int orientation = random.nextInt(2);
@@ -165,7 +167,7 @@ public class Ship {
                         || orient == 'h' && (colPC + ships[shipNumber] - 1 > 10)) {
                     getShip = true; // need to get the coordinate again
                 } else {
-                    //row--; //Because of the index starts with 0
+                    // row--; //Because of the index starts with 0
 
                     // Set the values on the player's board + check if it contacts another one
                     boolean canBePlaced = player.inicializeValues(ships[shipNumber], row, colPC, orient);
@@ -175,6 +177,7 @@ public class Ship {
                         Ship newShip = new Ship(ships[shipNumber], row, colPC, orient);
                         player.addShip(newShip);
                         ConsoleOutput.shipIsPlaced();
+                        player.showTable(true);
                         getShip = false;
                     } else {
                         getShip = true;

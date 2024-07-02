@@ -1,5 +1,7 @@
 import java.util.Scanner;
+import java.io.Console;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class ConsoleInput {
@@ -7,14 +9,18 @@ public class ConsoleInput {
 
     public static GameModes chooseGameMode() {
         int gameModeInput = 0;
-        boolean valid;
+        boolean valid = false;
         GameModes gameMode;
 
         do {
             ConsoleOutput.chooseGameMode();
-            gameModeInput = scanner.nextInt();
+            try{
+                gameModeInput = scanner.nextInt();
+                valid = Validation.gameModeValidation(gameModeInput);
+            }catch(InputMismatchException e){
+                ConsoleOutput.invalidGameModeInput();
+            }
             scanner.nextLine();
-            valid = Validation.gameModeValidation(gameModeInput);
         } while (!valid);
 
         switch (gameModeInput) {

@@ -112,8 +112,8 @@ public class ConsoleOutput {
         System.out.println("The number of your hits :" + playerHits);
     }
 
-    public static void youWon() {
-        System.out.println("Congratulations! You won!");
+    public static void youWon(String name) {
+        System.out.println(name + ", Congratulations! You won!");
     }
 
     public static void sunked() {
@@ -176,5 +176,12 @@ public class ConsoleOutput {
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static void newGame(){
+        System.out.println("Do you want to start a new game? Enter 'y' to start or 'n' to quit:");
+    }
+    public static void invalidNewGameInput(){
+        System.out.println("Invalid choice! Please enter 'y' to start a new game or 'n' to quit:");
     }
 }

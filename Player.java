@@ -300,7 +300,7 @@ public class Player {
     public static boolean hasWinner(Player shooterPlayer) {
         int playerHits = shooterPlayer.getHits();
         if (playerHits >= 17) {
-            ConsoleOutput.youWon();
+            ConsoleOutput.youWon(shooterPlayer.getName());
             return true;
         }
         return false;

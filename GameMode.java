@@ -26,7 +26,7 @@ public class GameMode {
         boolean hasWinner = false;
         do {// until we have a winner
             for (int playerNumber = 0; playerNumber <= 2; playerNumber++) {
-                if (playerNumber == 2) {
+                if (playerNumber == 2 && hasWinner == false) {
                     playerNumber = 0;
                 }
 
@@ -52,20 +52,33 @@ public class GameMode {
                 } else if (hitted) {
                     Player.hitIncrement(shooterPlayer);
                     hasWinner = Player.hasWinner(shooterPlayer);
-                    hasWinner = true;
+                    if (!hasWinner) {
+                        ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
+                        ConsoleOutput.pressEnterToContinue();
+                    }else {
+                        break;
+                    }
                 } else {// the cell is 2 or -1 ;
                     ConsoleOutput.alreadyShotthere();
 
                 }
-                if (!hasWinner) {
-                    ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
-                    ConsoleOutput.pressEnterToContinue();
-                }
+                
             }
         } while (!hasWinner);
+        ConsoleOutput.newGame();
+        boolean newGame = ConsoleInput.newGame();
+        if (newGame) {
+            GameMode.startGame(newGame);
+        }else {
+            System.exit(0);
+        }
     }
 
     public static void getShotGameMode2(ArrayList<Player> players) {
 
+    }
+
+    public static boolean startGame(boolean newGame) {
+       return newGame;
     }
 }

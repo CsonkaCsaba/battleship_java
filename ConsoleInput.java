@@ -48,5 +48,21 @@ public class ConsoleInput {
         return scanner.next();
     }
 
+    public static boolean newGame(){
+        boolean valid = false;
+        boolean newGame = false;
+        char answer;
+        do{
+            answer = scanner.next().charAt(0);
+            valid = Validation.isValidNewGameInput(answer);
+            if(!valid) {
+                ConsoleOutput.invalidNewGameInput();
+            }
+        }while (!valid);
+        if(answer == 'y'){
+            newGame = true;
+        }
+        return newGame;
+    }
 }
 

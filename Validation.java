@@ -75,5 +75,12 @@ public class Validation {
         }while(!validCoordinate);
         return value;
     }
-    
+    public static boolean isValidNewGameInput(char input) {
+        boolean validInput = false;
+            if(input == 'y' || input == 'n'){
+                validInput = true;
+            }
+        return validInput;
+    }
+
 }

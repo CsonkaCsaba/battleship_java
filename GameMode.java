@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 enum GameModes {
     HumanHuman, HumanPC, PCPC
@@ -22,6 +24,11 @@ public class GameMode {
         return names;
     }
 
+    public String[] namesGameMode3() { // 2. PC1 vs. PC2
+        String[] names = { "PC1", "PC2" };
+        return names;
+    }
+
     public static void getShotGameMode1(ArrayList<Player> players) {
         boolean hasWinner = false;
         do {// until we have a winner
@@ -34,51 +41,88 @@ public class GameMode {
                 Player enemy = (playerNumber == 0) ? players.get(playerNumber + 1) : players.get(playerNumber - 1);
 
                 ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
-
-                ConsoleOutput.getRowNumber();
-                int validatedShotRow = Validation.inputRowValidation();
-
-                ConsoleOutput.getColNumber();
-                int validatedShotCol = Validation.inputColValidation();
-
-                // check the coordinates on the board of the enemy
-                int[][] enemyboard = enemy.getBoard();
-                List<Ship> enemyShips = enemy.getShips();
-                boolean missed = Player.isMissed(enemyboard, validatedShotRow, validatedShotCol);
-                boolean hitted = Player.isHitted(enemyboard, validatedShotRow, validatedShotCol, enemyShips);
-
-                if (missed) {
-                    ConsoleOutput.missed();
-                } else if (hitted) {
-                    Player.hitIncrement(shooterPlayer);
-                    hasWinner = Player.hasWinner(shooterPlayer);
-                    if (!hasWinner) {
-                        ConsoleOutput.tableAfterShot(shooterPlayer.getName(), enemy);
-                        ConsoleOutput.pressEnterToContinue();
-                    }else {
-                        break;
-                    }
-                } else {// the cell is 2 or -1 ;
-                    ConsoleOutput.alreadyShotthere();
-
+                Map<String, Integer> humanShot = Shot.HumanShot();
+                hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, humanShot);
+                if (hasWinner) {
+                    break;
                 }
-                
             }
         } while (!hasWinner);
         ConsoleOutput.newGame();
         boolean newGame = ConsoleInput.newGame();
         if (newGame) {
             GameMode.startGame(newGame);
-        }else {
+        } else {
             System.exit(0);
         }
     }
 
     public static void getShotGameMode2(ArrayList<Player> players) {
+        boolean hasWinner = false;
+        do {// until we have a winner
+            for (int playerNumber = 0; playerNumber <= 2; playerNumber++) {
+                if (playerNumber == 2 && hasWinner == false) {
+                    playerNumber = 0;
+                }
 
+                Player shooterPlayer = players.get(playerNumber);
+                Player enemy = (playerNumber == 0) ? players.get(playerNumber + 1) : players.get(playerNumber - 1);
+
+                ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
+                if (shooterPlayer.getisPc()) {
+                    Map<String, Integer> pcShot = Shot.PcShot();
+                    hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, pcShot);
+                    if (hasWinner) {
+                        break;
+                    }
+                } else {
+                    Map<String, Integer> humanShot = Shot.HumanShot();
+                    hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, humanShot);
+                    if (hasWinner) {
+                        break;
+                    }
+                }
+            }
+        } while (!hasWinner);
+        ConsoleOutput.newGame();
+        boolean newGame = ConsoleInput.newGame();
+        if (newGame) {
+            GameMode.startGame(newGame);
+        } else {
+            System.exit(0);
+        }
+    }
+
+    public static void getShotGameMode3(ArrayList<Player> players) {
+        boolean hasWinner = false;
+        do {// until we have a winner
+            for (int playerNumber = 0; playerNumber <= 2; playerNumber++) {
+                if (playerNumber == 2 && hasWinner == false) {
+                    playerNumber = 0;
+                }
+
+                Player shooterPlayer = players.get(playerNumber);
+                Player enemy = (playerNumber == 0) ? players.get(playerNumber + 1) : players.get(playerNumber - 1);
+
+                ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
+                Map<String, Integer> pcShot = Shot.PcShot();
+                hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, pcShot);
+                if (hasWinner) {
+                    break;
+                }
+            }
+        } while (!hasWinner);
+        ConsoleOutput.newGame();
+        boolean newGame = ConsoleInput.newGame();
+        if (newGame) {
+            GameMode.startGame(newGame);
+        } else {
+            System.exit(0);
+        }
     }
 
     public static boolean startGame(boolean newGame) {
-       return newGame;
+        return newGame;
     }
+
 }

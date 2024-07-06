@@ -14,6 +14,7 @@ class Main {
             ConsoleOutput.welcomeMessage();
             GameModes gameMode = ConsoleInput.chooseGameMode();
             ArrayList<Player> players = new ArrayList<Player>();// ArrayList for save the players
+            String[] names;
 
             switch (gameMode) {
                 case HumanHuman:
@@ -21,7 +22,7 @@ class Main {
                         GameMode gameModeObj = new GameMode();
                         ConsoleOutput.clearScreen();
                         playerName = gameModeObj.namesGameMode1(playerNumber);
-                        Player player = new Player(playerName);
+                        Player player = new Player(playerName, false);
                         players.add(player);
                         Ship.placeTheHumanShips(ships, player);
                     }
@@ -29,17 +30,27 @@ class Main {
                     break;
                 case HumanPC:
                     GameMode gameModeObj2 = new GameMode();
-                    String[] names = gameModeObj2.namesGameMode2();
-                    Player human = new Player(names[0]);
-                    Player PC = new Player(names[1]);
+                    ConsoleOutput.clearScreen();
+                    names = gameModeObj2.namesGameMode2();
+                    Player human = new Player(names[0], false);
+                    Player PC = new Player(names[1], true);
                     players.add(human);
                     players.add(PC);
                     Ship.placeTheHumanShips(ships, human);
                     Ship.placeThePcShips(ships, PC);
-                    //GameMode.getShotGameMode2(players);
+                    GameMode.getShotGameMode2(players);
                     break;
                 default:
-                    ConsoleOutput.PCvsPC();
+                    GameMode gameModeObj3 = new GameMode();
+                    names = gameModeObj3.namesGameMode3();
+                    Player PC1 = new Player(names[0], true);
+                    Player PC2 = new Player(names[1], true);
+                    players.add(PC1);
+                    players.add(PC2);
+                    Ship.placeThePcShips(ships, PC1);
+                    Ship.placeThePcShips(ships, PC2);
+                    GameMode.getShotGameMode3(players);
+                    break;
             }
         }while(!newGame);
     }

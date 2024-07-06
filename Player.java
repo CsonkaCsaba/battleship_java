@@ -7,40 +7,51 @@ public class Player {
     private int[][] board;
     private List<Ship> ships;
     private int hits;
+    private boolean isPc;
 
-    public Player(String name) {
+    
+    public Player(String name, boolean isPc) {
         this.name = name;
         this.board = new int[9][11];
         this.ships = new ArrayList<Ship>();
         this.hits = 0;
-
+        this.isPc = isPc;
+        
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
                 board[row][col] = 0;
             }
         }
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public int[][] getBoard() {
         return board;
     }
-
+    
     public void setBoard(int[][] board) {
         this.board = board;
     }
-
+    
     public List<Ship> getShips() {
         return ships;
     }
 
+    public boolean getisPc() {
+        return isPc;
+    }
+
+    public void setisPc(boolean isPc) {
+        this.isPc = isPc;
+    }
+    
     public void setShips(List<Ship> ships) {
         this.ships = ships;
     }
@@ -92,12 +103,18 @@ public class Player {
     }
 
     public boolean inicializeValues(int length, int row, int col, char orient) {
-        boolean placeable = false;
+        boolean noNeighbor = true;
         if (orient == 'v') {
             int end = row + length;
 
-            for (int k = row; k < end; k++) {
-                if (this.board[k][col] != 3) { // Checking the neighbors
+            for (int j = row; j < end; j++) {
+                if (this.board[j][col] == 3) {
+                    noNeighbor = false;
+                }
+            }
+
+            if (noNeighbor) {
+                for (int k = row; k < end; k++) {
                     this.board[k][col] = 1;
 
                     // Setting the values of surrounding cells to 3
@@ -109,59 +126,64 @@ public class Player {
                     if (col < 10) {
                         this.board[k][col + 1] = 3;
                     }
-                    placeable = true;
-                } else {
-                    return placeable;
                 }
-            }
+                // Setting the values of surrounding cells to 3
+                // Top
+                if ((row - 1) > -1) {
+                    this.board[row - 1][col] = 3;
+                }
 
-            // Setting the values of surrounding cells to 3
-            // Top
-            if ((row - 1) > -1) {
-                this.board[row - 1][col] = 3;
-            }
-
-            // bottom
-            if (end < 8) {
-                this.board[end][col] = 3;
+                // bottom
+                if (end < 8) {
+                    this.board[end][col] = 3;
+                }
+                return true;
+            } else {
+                return false;
             }
 
             // Horizontal
         } else {
             int end = col + length;
 
-            for (int k = col; k < end; k++) {
-                if (this.board[row][k] != 3) { // Checking the neighbors
-                    this.board[row][k] = 1;
-
-                    // Setting the values of surrounding cells to 3
-                    // Top
-                    if (row > 0) {
-                        this.board[row - 1][k] = 3;
-                    }
-                    // Bottom
-                    if (row < 8) {
-                        this.board[row + 1][k] = 3;
-                    }
-
-                    placeable = true;
-                } else {
-                    return false;
+            for (int i = col; i < end; i++) {
+                if (this.board[row][i] == 3) {
+                    noNeighbor = false;
                 }
             }
 
-            // Setting the values of surrounding cells to 3
-            // Left
-            if ((col - 1) > 0) {
-                this.board[row][col - 1] = 3;
-            }
+            if (noNeighbor) {
+                for (int k = col; k < end; k++) {
+                    if (this.board[row][k] != 3) { // Checking the neighbors
+                        this.board[row][k] = 1;
 
-            // Right
-            if (end < 10) {
-                this.board[row][end] = 3;
+                        // Setting the values of surrounding cells to 3
+                        // Top
+                        if (row > 0) {
+                            this.board[row - 1][k] = 3;
+                        }
+                        // Bottom
+                        if (row < 8) {
+                            this.board[row + 1][k] = 3;
+                        }
+                    }
+                }
+
+                // Setting the values of surrounding cells to 3
+                // Left
+                if ((col - 1) > 0) {
+                    this.board[row][col - 1] = 3;
+                }
+
+                // Right
+                if (end < 10) {
+                    this.board[row][end] = 3;
+                }
+                return true;
+            } else {
+                return false;
             }
         }
-        return placeable;
     }
 
     public static boolean isMissed(int[][] enemyboard, int shotRow, int validatedShotCol) {

@@ -86,9 +86,7 @@ public class Ship {
             char orient = ' ';
             int col = 0;
 
-            while (getShip) {
-
-                
+            while (getShip) {                
                 do {
                     // Get the row number of the first cell
                     ConsoleOutput.getShipRow(ships[shipNumber]);
@@ -137,6 +135,58 @@ public class Ship {
         ConsoleOutput.pressEnterToContinue();
     }
 
+    // public static void placeThePcShips(int[] ships, Player player) {
+
+    //     for (int shipNumber = 0; shipNumber < ships.length; shipNumber++) {
+    //         boolean getShip = true;
+    //         Random random = new Random();
+    //         char orient = ' ';
+
+    //         while (getShip) {
+    //             // Get the row number of the first cell
+    //             int row = random.nextInt(8 - 1);
+
+    //             // Get the column of the first cell
+    //             int colPC = random.nextInt(10 - 1);
+
+    //             // Get the orientation
+    //             int orientation = random.nextInt(2);
+
+    //             // check if orientation input is correct
+
+    //             // vertical and horizontal check
+    //             // 0 -> vertical, 1-> horizontal
+    //             if (orientation == 0) {
+    //                 orient = 'v';
+    //             } else {
+    //                 orient = 'h';
+    //             }
+    //             if ((orient == 'v' && (row + ships[shipNumber] - 1 > 9))
+    //                     || orient == 'h' && (colPC + ships[shipNumber] - 1 > 10)) {
+    //                 getShip = true; // need to get the coordinate again
+    //             } else {
+    //                 // row--; //Because of the index starts with 0
+
+    //                 // Set the values on the player's board + check if it contacts another one
+    //                 boolean canBePlaced = player.inicializeValues(ships[shipNumber], row, colPC, orient);
+
+    //                 // If the ship can be placed (doesn't contact another)
+    //                 if (canBePlaced) {
+    //                     Ship newShip = new Ship(ships[shipNumber], row, colPC, orient);
+    //                     player.addShip(newShip);
+    //                     ConsoleOutput.shipIsPlaced();
+    //                     player.showTable(true);
+    //                     getShip = false;
+    //                 } else {
+    //                     getShip = true;
+    //                 }
+    //             }
+    //         }
+
+    //     }
+
+    // }
+
     public static void placeThePcShips(int[] ships, Player player) {
 
         for (int shipNumber = 0; shipNumber < ships.length; shipNumber++) {
@@ -146,15 +196,13 @@ public class Ship {
 
             while (getShip) {
                 // Get the row number of the first cell
-                int row = random.nextInt(8 - 1);
+                int rowPC = random.nextInt(8);
 
                 // Get the column of the first cell
-                int colPC = random.nextInt(10 - 1);
+                int colPC = random.nextInt(10);
 
                 // Get the orientation
                 int orientation = random.nextInt(2);
-
-                // check if orientation input is correct
 
                 // vertical and horizontal check
                 // 0 -> vertical, 1-> horizontal
@@ -163,18 +211,18 @@ public class Ship {
                 } else {
                     orient = 'h';
                 }
-                if ((orient == 'v' && (row + ships[shipNumber] - 1 > 9))
-                        || orient == 'h' && (colPC + ships[shipNumber] - 1 > 10)) {
+                if ((orient == 'v' && (rowPC + ships[shipNumber] > 9))
+                        || orient == 'h' && (colPC + ships[shipNumber] > 11)) {
                     getShip = true; // need to get the coordinate again
                 } else {
                     // row--; //Because of the index starts with 0
 
                     // Set the values on the player's board + check if it contacts another one
-                    boolean canBePlaced = player.inicializeValues(ships[shipNumber], row, colPC, orient);
+                    boolean canBePlaced = player.inicializeValues(ships[shipNumber], rowPC, colPC, orient);
 
                     // If the ship can be placed (doesn't contact another)
                     if (canBePlaced) {
-                        Ship newShip = new Ship(ships[shipNumber], row, colPC, orient);
+                        Ship newShip = new Ship(ships[shipNumber], rowPC, colPC, orient);
                         player.addShip(newShip);
                         ConsoleOutput.shipIsPlaced();
                         player.showTable(true);

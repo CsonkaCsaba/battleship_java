@@ -1,9 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
-
 
 class Main {
     public static void main(String[] args) {

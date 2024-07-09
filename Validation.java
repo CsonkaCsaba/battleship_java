@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.RowFilter.Entry;
+import javax.swing.text.html.parser.Entity;
 
 public class Validation {
     public static boolean gameModeValidation(int gameModeInput) {
@@ -24,7 +26,7 @@ public class Validation {
     public static int inputRowValidation() {
         int rowInput = 0;
         boolean validate = false;
-        do{// until the ROW coordinates are valid
+        do {// until the ROW coordinates are valid
             try {
                 rowInput = ConsoleInput.getRowNumber();
                 if (rowInput <= 0 || rowInput >= 10) {
@@ -35,18 +37,18 @@ public class Validation {
             } catch (NumberFormatException e) {
                 ConsoleOutput.wrongRowNumber();
             }
-        }while(!validate);
-        return rowInput-1; 
+        } while (!validate);
+        return rowInput - 1;
     }
 
     public static int inputColValidation() {
 
         boolean validCoordinate = false;
         int value = 0;
-        do{// until the COLUMN coordinates are valid
+        do {// until the COLUMN coordinates are valid
             char colFromUser = ConsoleInput.getChar();
             if (Character.isDigit(colFromUser)) {
-               ConsoleOutput.wrongColInput();
+                ConsoleOutput.wrongColInput();
             } else {
                 char shotColToLower = Character.toLowerCase(colFromUser);
                 if (shotColToLower <= 'k') {
@@ -72,15 +74,15 @@ public class Validation {
                     ConsoleOutput.wrongColInput();
                 }
             }
-        }while(!validCoordinate);
+        } while (!validCoordinate);
         return value;
     }
+
     public static boolean isValidNewGameInput(char input) {
         boolean validInput = false;
-            if(input == 'y' || input == 'n'){
-                validInput = true;
-            }
+        if (input == 'y' || input == 'n') {
+            validInput = true;
+        }
         return validInput;
     }
-
 }

@@ -14,11 +14,23 @@ public class Shot {
         return shot;
     }
 
-    public static Map<String, Integer> PcShot() {
+    public static Map<String, Integer> PcShot(Player enemy) {
         Random random = new Random();
         Map<String, Integer> shot = new HashMap<>();
-        shot.put("row", random.nextInt(8));
-        shot.put("col", random.nextInt(10));
+        boolean hitted = false;
+        do {
+            hitted = false;
+            int row = random.nextInt(9);
+            int col = random.nextInt(11);
+            int[][] board = enemy.getBoard();
+            if (board[row][col] == -1) {
+                hitted = true;
+            } else {
+                shot.put("row", row);
+                shot.put("col", col);
+            }
+        } while (hitted);
+
         return shot;
     }
 

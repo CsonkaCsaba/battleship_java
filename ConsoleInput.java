@@ -1,8 +1,5 @@
 import java.util.Scanner;
-import java.io.Console;
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
 
 public class ConsoleInput {
     static Scanner scanner = new Scanner(System.in);

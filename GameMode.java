@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 enum GameModes {
@@ -70,7 +68,7 @@ public class GameMode {
 
                 ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
                 if (shooterPlayer.getisPc()) {
-                    Map<String, Integer> pcShot = Shot.PcShot();
+                    Map<String, Integer> pcShot = Shot.PcShot(enemy);
                     hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, pcShot);
                     if (hasWinner) {
                         break;
@@ -105,7 +103,7 @@ public class GameMode {
                 Player enemy = (playerNumber == 0) ? players.get(playerNumber + 1) : players.get(playerNumber - 1);
 
                 ConsoleOutput.playerTurn(shooterPlayer.getName(), enemy);
-                Map<String, Integer> pcShot = Shot.PcShot();
+                Map<String, Integer> pcShot = Shot.PcShot(enemy);
                 hasWinner = Shot.hittedOrMissed(shooterPlayer, enemy, pcShot);
                 if (hasWinner) {
                     break;
